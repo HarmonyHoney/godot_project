@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3eqx0wuvdq71"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_4gpnt"]
+[ext_resource type="Script" path="res://scrolly.gd" id="2_6suxi"]
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_4gpnt")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 120
+text = "label"
+
+[node name="Scrolly" type="HBoxContainer" parent="."]
+offset_left = 233.0
+offset_top = 262.0
+offset_right = 889.0
+offset_bottom = 339.0
+script = ExtResource("2_6suxi")
+
+[node name="Label" type="Label" parent="Scrolly"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 30
+text = "Mouse Sens"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HScrollBar" type="HScrollBar" parent="Scrolly"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.01
+max_value = 30.0
+value = 7.77
+
+[node name="LineEdit" type="LineEdit" parent="Scrolly"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "13.27"
+placeholder_text = "0"

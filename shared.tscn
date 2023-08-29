@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8a480tclsehi"]
+
+[ext_resource type="Script" path="res://shared.gd" id="1_oy882"]
+
+[node name="Shared" type="Node"]
+script = ExtResource("1_oy882")
