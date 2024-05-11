@@ -18,7 +18,11 @@ var vel := 0.0
 @export var turn_speed := 1.0
 @export var push_speed := 5.0
 @export var move_delta := 0.5
+@export var lean_angle := 0.25
 
+
+var air_angle := 0.0
+var floor_angle = 0.0
 
 func _physics_process(delta):
 	
@@ -28,30 +32,39 @@ func _physics_process(delta):
 	btnp_push = Input.is_action_just_pressed("push")
 	
 	if is_floor:
-		anim.play("Idle" if velocity == Vector3.ZERO else "Run")
-	else:
-		anim.play("Jump" if velocity.y > 0 else "Fall")
+		floor_angle = angle
+		# pushing
+		if btnp_push:
+			vel = min(push_speed * 3.0, vel + push_speed)
+	else:	
 		# gravity
 		velocity.y -= gravity * delta
 	
 	if btnp_jump and is_floor:
 		velocity.y = jump_vel
 		anim.play("Jump")
-	
-	var input_dir = Input.get_vector("left", "right", "up", "down")
-	
-	angle -= input_dir.x * turn_speed
-	model.rotation.y = angle + PI
+		air_angle = angle
 	
 	
-	if btnp_push:
-		vel = min(push_speed * 3.0, vel + push_speed)
 	
 	vel = move_toward(vel, 0.0, move_delta)
-	var go = Vector3.FORWARD.rotated(Vector3(0,1,0), angle) * vel
+	
+	
+	# turn
+	var input_dir = Input.get_vector("left", "right", "up", "down")
+	angle -= input_dir.x * turn_speed  * vel
+	model.rotation.y = angle + PI
+	# lean
+	model.rotation.z = input_dir.x * lean_angle
+	
+	
+	
+	var go = Vector3.FORWARD.rotated(Vector3(0,1,0), floor_angle) * vel
 	
 	velocity.x = go.x
 	velocity.z = go.z
+	
+	
 	
 	
 	move_and_slide()

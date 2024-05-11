@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://cjkq8kpxelrnd"]
+[gd_scene load_steps=22 format=3 uid="uid://cjkq8kpxelrnd"]
 
+[ext_resource type="Texture2D" uid="uid://co0p64htn7wna" path="res://addons/TerrainPlugin/TestTextures/512x512 Texel Density Texture 1.png" id="1_bm61s"]
 [ext_resource type="Texture2D" uid="uid://6ashjiy2mxqq" path="res://icon.svg" id="1_ietif"]
 [ext_resource type="Script" path="res://cam.gd" id="2_k2k7o"]
 [ext_resource type="Script" path="res://player.gd" id="2_pcxv5"]
@@ -22,6 +23,11 @@ glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_uh51e"]
 size = Vector2(300, 300)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7thr"]
+albedo_texture = ExtResource("1_bm61s")
+albedo_texture_force_srgb = true
+uv1_scale = Vector3(7, 7, 7)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fpq4c"]
 
@@ -60,8 +66,14 @@ height = 2.5
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0g5d"]
 albedo_color = Color(0.831373, 0.443137, 0, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktwxh"]
+albedo_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gw2tq"]
 albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4w84n"]
+albedo_color = Color(1, 0.87451, 0, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -73,6 +85,7 @@ environment = SubResource("Environment_j6qtd")
 [node name="Plane" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("PlaneMesh_uh51e")
 skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_m7thr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("WorldBoundaryShape3D_fpq4c")
@@ -140,7 +153,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09029, -2.70737)
 script = ExtResource("2_pcxv5")
 cam = NodePath("../Camera")
-turn_speed = 0.1
+turn_speed = 0.01
 push_speed = 10.0
 move_delta = 0.1
 
@@ -164,12 +177,46 @@ polygon = PackedVector2Array(0, 0, 0, 2, 0.3, 2.5, 0.7, 2.5, 1, 2, 1, 0, 0.7, -0
 depth = 0.11
 material = SubResource("StandardMaterial3D_c0g5d")
 
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Player/GobotSkin/Skateboard"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.5, 0.03, 1)
+polygon = PackedVector2Array(0, 0, 0, 2, 0.3, 2.5, 0.7, 2.5, 1, 2, 1, 0, 0.7, -0.5, 0.3, -0.5)
+depth = 0.04
+material = SubResource("StandardMaterial3D_ktwxh")
+
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="Player/GobotSkin/Skateboard"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.390161, -0.274358, 0.891596)
 radius = 0.13
 height = 0.206
 sides = 12
 material = SubResource("StandardMaterial3D_gw2tq")
+
+[node name="Truck1" type="CSGCylinder3D" parent="Player/GobotSkin/Skateboard"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.0142044, -0.274358, 0.891596)
+radius = 0.043
+height = 0.59
+sides = 12
+material = SubResource("StandardMaterial3D_4w84n")
+
+[node name="Truck3" type="CSGCylinder3D" parent="Player/GobotSkin/Skateboard"]
+transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0.0142044, -0.198931, 0.891596)
+radius = 0.043
+height = 0.153
+sides = 12
+material = SubResource("StandardMaterial3D_4w84n")
+
+[node name="Truck4" type="CSGCylinder3D" parent="Player/GobotSkin/Skateboard"]
+transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0.014, -0.199, -0.892)
+radius = 0.043
+height = 0.153
+sides = 12
+material = SubResource("StandardMaterial3D_4w84n")
+
+[node name="Truck2" type="CSGCylinder3D" parent="Player/GobotSkin/Skateboard"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.014, -0.274, -0.892)
+radius = 0.043
+height = 0.59
+sides = 12
+material = SubResource("StandardMaterial3D_4w84n")
 
 [node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Player/GobotSkin/Skateboard"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.39, -0.274, 0.892)
