@@ -15,6 +15,7 @@ var btn_jump := false
 var btnp_jump := false
 var btn_push := false
 var btnp_push := false
+var btn_brake := false
 var angle := 0.0
 var vel := 0.0
 @export var turn_speed := 1.0
@@ -30,6 +31,7 @@ var floor_angle = 0.0
 var last_turn := 0.0
 var turn_dir := 0.0
 var turn_diff := 0.0
+@export var carve_lerp = 1.0
 
 func _physics_process(delta):
 	
@@ -37,6 +39,7 @@ func _physics_process(delta):
 	btnp_jump = Input.is_action_just_pressed("jump")
 	btn_push = Input.is_action_pressed("push")
 	btnp_push = Input.is_action_just_pressed("push")
+	btn_brake = Input.is_action_pressed("brake")
 	
 	if is_floor:
 		floor_angle = angle
@@ -55,7 +58,7 @@ func _physics_process(delta):
 	# turn
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	last_turn = turn_dir
-	turn_dir = input_dir.x
+	turn_dir = lerp(turn_dir, input_dir.x, carve_lerp * delta)
 	turn_diff = abs(turn_dir - last_turn)
 	
 	angle -= turn_dir * turn_speed  * vel
@@ -66,9 +69,11 @@ func _physics_process(delta):
 	deck.rotation.z = turn_dir * lean_angle
 	
 	
-	vel *= 1.0 + (turn_diff * carve_boost)
+	vel += turn_diff * (carve_boost * vel)
 	vel = move_toward(vel, 0.0, move_delta)
 	
+	if btn_brake:
+		vel = lerp(vel, 0.0, 1.5 * delta)
 	
 	var go = Vector3.FORWARD.rotated(Vector3(0,1,0), floor_angle) * vel
 	

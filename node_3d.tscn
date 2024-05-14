@@ -158,7 +158,8 @@ push_speed = 30.0
 push_mod = 0.6
 move_delta = 0.1
 turn_angle = 0.4
-carve_boost = 0.03
+carve_boost = 0.06
+carve_lerp = 11.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CylinderShape3D_s6srn")
