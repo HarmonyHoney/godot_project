@@ -163,6 +163,7 @@ turn_angle = 0.4
 carve_boost = 0.06
 power_lerp = 5.0
 curvy = SubResource("Curve_e7ww2")
+mouse_sens = 0.05
 
 [node name="RayCast3D" type="RayCast3D" parent="Player"]
 debug_shape_custom_color = Color(1, 0, 0, 1)

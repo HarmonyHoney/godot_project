@@ -18,6 +18,9 @@ var btnp_jump := false
 var btn_push := false
 var btnp_push := false
 var btn_brake := false
+var btn_look := false
+var btnp_look := false
+
 var angle := 0.0
 @export var turn_speed := 1.0
 @export var push_speed := 5.0
@@ -32,17 +35,42 @@ var turn_diff := 0.0
 @export var turn_lerp := 12.0
 @export var power_lerp := 2.0
 @export var curvy : Curve
+@export var mouse_sens := 1.0
+
+var mouse_vel := Vector2.ZERO
+var mouse_stance := 1.0
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		mouse_vel = event.relative
 
 func _physics_process(delta):
+	var q = PI * 0.5
+	var cam_dist = wrapf(cam.angle.y + q - angle, -PI, PI)
+	var cam_float = 1 if cam_dist < 0 else -1
+	var vang = wrapf(atan2(velocity.x, velocity.z), 0.0, TAU)
+	var dang = wrapf(vang - angle, -q, q)
+	var ad = rad_to_deg(abs(dang))
+	var frac = ad / 90.0
+	var unfrac = 1.0 - frac
 	
 	is_floor = is_on_floor()
 	btnp_jump = Input.is_action_just_pressed("jump")
 	btn_push = Input.is_action_pressed("push")
 	btnp_push = Input.is_action_just_pressed("push")
 	btn_brake = Input.is_action_pressed("brake")
+	btn_look = Input.is_action_pressed("cam_look")
+	btnp_look = Input.is_action_just_pressed("cam_look")
 	
 	# turn
 	var input_dir = Input.get_vector("left", "right", "up", "down")
+	# mouse control
+	if btn_look:
+		if btnp_look:
+			mouse_stance = 1.0#cam_float
+		input_dir.x = clamp(mouse_vel.x * mouse_sens * mouse_stance, -1.0, 1.0)
+		#cam.angle.y = angle
+	
 	last_turn = turn_dir
 	turn_dir = lerp(turn_dir, input_dir.x, carve_lerp * delta)
 	turn_diff = abs(turn_dir - last_turn)
@@ -55,15 +83,6 @@ func _physics_process(delta):
 	axel2.rotation.y = turn_dir * turn_angle * ffloor
 	# lean
 	deck.rotation.z = turn_dir * lean_angle
-	
-	var vang = wrapf(atan2(velocity.x, velocity.z), 0.0, TAU)
-	var q = PI * 0.5
-	var dang = wrapf(vang - angle, -q, q)
-	var ad = rad_to_deg(abs(dang))
-	var frac = ad / 90.0
-	var unfrac = 1.0 - frac
-	var cam_dist = wrapf(cam.angle.y + q - angle, -PI, PI)
-	var cam_float = 1 if cam_dist < 0 else -1
 	
 	if is_floor:
 		# turn
