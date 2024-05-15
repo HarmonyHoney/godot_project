@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cjkq8kpxelrnd"]
+[gd_scene load_steps=23 format=3 uid="uid://cjkq8kpxelrnd"]
 
 [ext_resource type="Texture2D" uid="uid://co0p64htn7wna" path="res://addons/TerrainPlugin/TestTextures/512x512 Texel Density Texture 1.png" id="1_bm61s"]
 [ext_resource type="Texture2D" uid="uid://6ashjiy2mxqq" path="res://icon.svg" id="1_ietif"]
@@ -59,6 +59,10 @@ emission = Color(1, 0, 0.364706, 1)
 albedo_texture = ExtResource("1_ietif")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e0us7"]
+
+[sub_resource type="Curve" id="Curve_e7ww2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.405263, 0.252747), 1.13344, 1.13344, 0, 0, Vector2(1, 1), 1.42857, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_s6srn"]
 height = 1.85
@@ -155,10 +159,10 @@ script = ExtResource("2_pcxv5")
 cam = NodePath("../Camera")
 turn_speed = 0.2
 push_speed = 10.0
-push_mod = 0.6
-move_delta = 0.1
 turn_angle = 0.4
 carve_boost = 0.06
+power_lerp = 5.0
+curvy = SubResource("Curve_e7ww2")
 
 [node name="RayCast3D" type="RayCast3D" parent="Player"]
 debug_shape_custom_color = Color(1, 0, 0, 1)
