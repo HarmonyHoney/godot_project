@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-var value := 0.0
+var value := 13.27
 
 @onready var scrollbar := $HScrollBar
 #@onready var label := $Label
@@ -9,6 +9,7 @@ var value := 0.0
 func _ready():
 	scrollbar.scrolling.connect(scroll_test)
 	line.text_submitted.connect(line_test)
+	scroll_test()
 
 func scroll_test():
 	test(scrollbar.value)

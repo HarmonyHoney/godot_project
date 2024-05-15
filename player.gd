@@ -5,6 +5,9 @@ extends CharacterBody3D
 @onready var axel1 := $Skateboard/Axel
 @onready var axel2 := $Skateboard/Axel2
 
+@onready var debug_ray1 := $RayCast3D
+@onready var debug_ray2 := $RayCast3D2
+
 @export var jump_vel = 4.5
 @export var cam : Node
 
@@ -38,19 +41,6 @@ func _physics_process(delta):
 	btnp_push = Input.is_action_just_pressed("push")
 	btn_brake = Input.is_action_pressed("brake")
 	
-	if is_floor:
-		# pushing
-		if btnp_push:
-			velocity += (Vector3.BACK * push_speed).rotated(Vector3(0, 1, 0), angle)
-	else:	
-		# gravity
-		velocity.y -= gravity * delta
-	
-	if btnp_jump and is_floor:
-		velocity.y = jump_vel
-		#anim.play("Jump")
-	
-	
 	# turn
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	last_turn = turn_dir
@@ -60,8 +50,9 @@ func _physics_process(delta):
 	angle -= turn_dir * turn_speed * velocity.length() * delta
 	angle = wrapf(angle, 0.0, TAU)
 	skateboard.rotation.y = angle
-	axel1.rotation.y = -turn_dir * turn_angle
-	axel2.rotation.y = turn_dir * turn_angle
+	var ffloor = float(is_floor)
+	axel1.rotation.y = -turn_dir * turn_angle * ffloor
+	axel2.rotation.y = turn_dir * turn_angle * ffloor
 	# lean
 	deck.rotation.z = turn_dir * lean_angle
 	
@@ -71,6 +62,8 @@ func _physics_process(delta):
 	var ad = rad_to_deg(abs(dang))
 	var frac = ad / 90.0
 	var unfrac = 1.0 - frac
+	var cam_dist = wrapf(cam.angle.y + q - angle, -PI, PI)
+	var cam_float = 1 if cam_dist < 0 else -1
 	
 	if is_floor:
 		# turn
@@ -81,12 +74,24 @@ func _physics_process(delta):
 			velocity = velocity * (1.0 - (frac * power_lerp * delta))
 		elif btn_brake:
 			velocity = velocity * (1.0 - (1.0 * power_lerp * delta))
+		
+		# pushing
+		if btnp_push:
+			velocity += (Vector3(0,0,cam_float) * push_speed).rotated(Vector3(0,1,0), angle)
+			debug_ray2.scale = Vector3.ONE * cam_float
+		
+		# jump
+		if btnp_jump:
+			velocity.y = jump_vel
+	else:
+		# gravity
+		velocity.y -= gravity * delta
 	
-	print(rad_to_deg(angle), " - ", rad_to_deg(vang), " = ", rad_to_deg(dang), " , ", frac)
+	print(rad_to_deg(angle), " - ", rad_to_deg(vang), " = ", rad_to_deg(dang), " , ", frac, " cam: ", rad_to_deg(cam_dist))
 	
 	# velocity
-	$RayCast3D.target_position = velocity.normalized() * 5.0
+	debug_ray1.target_position = velocity.normalized() * 5.0
 	# angle
-	$RayCast3D2.target_position = Vector3(0, 0, 5.0).rotated(Vector3(0,1,0), angle)
+	debug_ray2.target_position = Vector3(0, 0, 5.0).rotated(Vector3(0,1,0), angle)
 	
 	move_and_slide()
