@@ -153,13 +153,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09029, -2.70737)
 script = ExtResource("2_pcxv5")
 cam = NodePath("../Camera")
-turn_speed = 0.005
-push_speed = 30.0
+turn_speed = 0.2
+push_speed = 10.0
 push_mod = 0.6
 move_delta = 0.1
 turn_angle = 0.4
 carve_boost = 0.06
-carve_lerp = 11.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Player"]
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="RayCast3D2" type="RayCast3D" parent="Player"]
+debug_shape_custom_color = Color(0, 0, 1, 1)
+debug_shape_thickness = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CylinderShape3D_s6srn")
