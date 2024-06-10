@@ -43,6 +43,9 @@ var mouse_stance := 1.0
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_vel = event.relative
+	
+	if event.is_action_pressed("debug_reset"):
+		get_tree().reload_current_scene()
 
 func _physics_process(delta):
 	var q = PI * 0.5

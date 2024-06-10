@@ -9,6 +9,7 @@ extends Node3D
 @export var angle := Vector2.ZERO
 @export var joy_sens := 1.0
 @export var lerp_angle := Vector2.ONE
+@export var resting_yaw := 30.0
 
 var is_look := false
 
@@ -28,5 +29,10 @@ func _process(delta):
 		angle = Vector2(clamp(angle.x, -limit, limit), wrapf(angle.y, 0.0, TAU))
 	
 	position = target_node.global_position + follow_offset
-	angle.y = lerp_angle(angle.y, target_node.rotation.y, delta * lerp_angle.y)
+	
+	var vel = target_node.velocity
+	var ang = atan2(vel.x, vel.z)
+	if vel.length() > 3.0:
+		angle.x = lerp_angle(angle.x, deg_to_rad(resting_yaw), delta * lerp_angle.x )
+		angle.y = lerp_angle(angle.y, ang + PI, delta * lerp_angle.y)
 	rotation = Vector3(angle.x, angle.y, 0.0)
