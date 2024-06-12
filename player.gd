@@ -82,10 +82,10 @@ func _physics_process(delta):
 	angle = wrapf(angle, 0.0, TAU)
 	skateboard.rotation.y = angle
 	var ffloor = float(is_floor)
-	axel1.rotation.y = -turn_dir * turn_angle * ffloor
-	axel2.rotation.y = turn_dir * turn_angle * ffloor
+	axel1.rotation.y = -turn_dir * turn_angle * cam_float * ffloor 
+	axel2.rotation.y = turn_dir * turn_angle * cam_float * ffloor
 	# lean
-	deck.rotation.z = turn_dir * lean_angle
+	deck.rotation.z = turn_dir * lean_angle * cam_float
 	
 	if is_floor:
 		# turn
