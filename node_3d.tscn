@@ -130,6 +130,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.0373, 0.5, -36.9746)
 material_override = SubResource("StandardMaterial3D_6yn54")
 use_collision = true
 
+[node name="Box9" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -13.102, 0, -37.963)
+material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
+size = Vector3(10, 10, 10)
+
+[node name="Box10" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -1.11696, -1.87158, -37.963)
+material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
+size = Vector3(10, 10, 10)
+
+[node name="Box11" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 12.1623, -3.55428, -37.963)
+material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
+size = Vector3(10, 10, 10)
+
+[node name="Box12" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 0.992546, -0.121869, 0, 0.121869, 0.992546, 25.5564, -4.36483, -37.963)
+material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
+size = Vector3(10, 10, 10)
+
 [node name="Box5" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_6yn54")
@@ -244,13 +268,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09029, -2.70737)
 script = ExtResource("2_pcxv5")
 cam = NodePath("../Camera")
-turn_speed = 0.2
+turn_speed = 0.4
 push_speed = 10.0
 turn_angle = 0.4
-carve_boost = 0.06
 power_lerp = 5.0
 curvy = SubResource("Curve_e7ww2")
-mouse_sens = 0.05
+mouse_sens = 0.06
 
 [node name="RayCast3D" type="RayCast3D" parent="Actor/Player"]
 debug_shape_custom_color = Color(1, 0, 0, 1)
