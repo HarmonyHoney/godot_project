@@ -60,7 +60,8 @@ emission = Color(1, 0, 0.364706, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6yn54"]
 albedo_texture = ExtResource("1_ietif")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_e0us7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syy88"]
+albedo_color = Color(1, 0.403922, 1, 1)
 
 [sub_resource type="Curve" id="Curve_e7ww2"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.405263, 0.252747), 1.13344, 1.13344, 0, 0, Vector2(1, 1), 1.42857, 0.0, 0, 0]
@@ -99,51 +100,105 @@ surface_material_override/0 = SubResource("StandardMaterial3D_m7thr")
 shape = SubResource("WorldBoundaryShape3D_fpq4c")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(5, 0, 0, 0, -2.18557e-07, -5, 0, 5, -2.18557e-07, 11.3832, 5.71815, -15.2217)
+transform = Transform3D(4.99969, 0.0557498, 0, 2.4369e-09, -2.18543e-07, -5, -0.0557498, 4.99969, -2.18557e-07, 11.3832, 5.71815, -15.2217)
 mesh = SubResource("TorusMesh_w6mi8")
 script = SubResource("GDScript_uom4i")
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7.00515, 1.62014, 5.15216)
+transform = Transform3D(0.233582, 0.972337, 0, 4.25022e-08, -1.02102e-08, -1, -0.972337, 0.233582, -4.37114e-08, -7.00515, 1.62014, 5.15216)
 mesh = SubResource("TorusMesh_w6mi8")
 material = SubResource("StandardMaterial3D_l6a0e")
 script = SubResource("GDScript_uom4i")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stage"]
+[node name="Box" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.708)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Stage/StaticBody3D"]
 material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/StaticBody3D"]
-shape = SubResource("BoxShape3D_e0us7")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="Stage"]
+[node name="Box2" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9113, 0.5, -0.708)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Stage/StaticBody3D2"]
 material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/StaticBody3D2"]
-shape = SubResource("BoxShape3D_e0us7")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="Stage"]
+[node name="Box3" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.59357, 0.5, 28.3928)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Stage/StaticBody3D3"]
 material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/StaticBody3D3"]
-shape = SubResource("BoxShape3D_e0us7")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="Stage"]
+[node name="Box4" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.0373, 0.5, -36.9746)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Stage/StaticBody3D4"]
 material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/StaticBody3D4"]
-shape = SubResource("BoxShape3D_e0us7")
+[node name="Cone" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35252, 1, -4.03371)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="Cone2" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2391, 1, -4.03371)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="Cone3" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.0975, 1, -4.03371)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="Cone4" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.601, 1, -4.03371)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="Cone5" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.0955, 1, -4.03371)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="Cone6" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.8946, 1, -9.91025)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="Cone7" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.4605, 1, -6.28668)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="Cone8" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.1608, 1, -7.42703)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="Cone9" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.0005, 1, -18.861)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="Cone10" type="CSGCylinder3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.6237, 1, -23.678)
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, -0.456058, 0.88995, 0, -0.88995, -0.456058, 1.68758, 4.37965, -2.92982)
