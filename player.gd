@@ -80,7 +80,7 @@ func _physics_process(delta):
 	
 	angle -= turn_dir * turn_speed * velocity.length() * delta
 	angle = wrapf(angle, 0.0, TAU)
-	skateboard.rotation.y = angle
+	rotation.y = angle
 	var ffloor = float(is_floor)
 	axel1.rotation.y = -turn_dir * turn_angle * cam_float * ffloor 
 	axel2.rotation.y = turn_dir * turn_angle * cam_float * ffloor
@@ -113,7 +113,9 @@ func _physics_process(delta):
 	
 	# velocity
 	debug_ray1.target_position = velocity.normalized() * 5.0
+	debug_ray1.global_rotation = Vector3.ZERO
 	# angle
 	debug_ray2.target_position = Vector3(0, 0, 5.0).rotated(Vector3(0,1,0), angle)
+	debug_ray2.global_rotation = Vector3.ZERO
 	
 	move_and_slide()

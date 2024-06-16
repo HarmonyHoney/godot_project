@@ -4,7 +4,6 @@ extends Node3D
 
 @export var target_node : Node3D
 @export var follow_offset := Vector3(0,0,0)
-@export var follow_dist := 2.0
 
 @export var angle := Vector2.ZERO
 @export var joy_sens := 1.0
