@@ -1,7 +1,7 @@
 extends Node
 
 var mouse_sens := 0.01
-var carve_sens := 0.01
+var carve_sens := 1.50
 var is_look := false
 
 func _input(event):

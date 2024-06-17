@@ -90,7 +90,8 @@ func _physics_process(delta):
 	
 	if is_floor:
 		# turn
-		velocity = velocity.rotated(Vector3(0,1,0), -dang * turn_lerp * unfrac * delta)
+		if !btn_brake:
+			velocity = velocity.rotated(Vector3(0,1,0), -dang * turn_lerp * unfrac * delta)
 		
 		# carve boost
 		var vel_flat = Vector3(velocity.x, 0, velocity.z)

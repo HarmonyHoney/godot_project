@@ -270,14 +270,14 @@ transform = Transform3D(1, 0, 0, 0, -0.456058, 0.88995, 0, -0.88995, -0.456058, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 script = ExtResource("2_k2k7o")
 target_node = NodePath("../Player")
-follow_offset = Vector3(0, -0.3, 0)
+follow_offset = Vector3(0, 0.5, 0)
 joy_sens = 3.0
 lerp_angle = Vector2(1, 10)
-resting_yaw = -20.0
+resting_yaw = -10.0
 
 [node name="Camera3D" type="Camera3D" parent="Actor/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
-fov = 90.0
+fov = 110.0
 
 [node name="Player" type="CharacterBody3D" parent="Actor" node_paths=PackedStringArray("cam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09029, -2.70737)
@@ -341,32 +341,27 @@ radius = 0.135
 height = 1.0
 
 [node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
-transform = Transform3D(0.90138, -0.43303, 0, 0.43303, 0.90138, 0, 0, 0, 1, -0.227558, 2.71998, 0)
-radius = 0.135
-height = 1.0
-
-[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
-transform = Transform3D(0.880635, 0.473796, 0, -0.473796, 0.880635, 0, 0, 0, 1, -0.139933, 3.65144, 0)
+transform = Transform3D(0.995146, -0.0984166, 0, 0.0984166, 0.995146, 0, 0, 0, 1, -0.135743, 2.71998, 0)
 radius = 0.135
 height = 1.0
 
 [node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
-transform = Transform3D(0.803795, 0.594903, 0.00218041, -0.234435, 0.313381, 0.920235, 0.546767, -0.740191, 0.39136, -0.195006, 3.93333, 0.722126)
+transform = Transform3D(0.803795, 0.594903, 0.00218041, -0.234435, 0.313381, 0.920235, 0.546767, -0.740191, 0.39136, -0.460365, 3.10127, 0.722126)
 radius = 0.135
 height = 1.0
 
 [node name="CSGCylinder3D8" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
-transform = Transform3D(0.828491, -0.559999, -0.0020525, 0.108129, 0.156374, 0.981761, -0.549465, -0.813602, 0.190106, -0.217561, 3.68196, 1.55875)
+transform = Transform3D(0.828491, -0.559999, -0.0020525, 0.108129, 0.156374, 0.981761, -0.549465, -0.813602, 0.190106, -0.48292, 2.8499, 1.55875)
 radius = 0.135
 height = 1.0
 
 [node name="CSGCylinder3D9" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
-transform = Transform3D(0.803795, 0.594903, 0.0021804, 0.142802, -0.196501, 0.970049, 0.577513, -0.779409, -0.2429, -0.195006, 3.73021, -1.41977)
+transform = Transform3D(0.803795, 0.594903, 0.0021804, 0.142802, -0.196501, 0.970049, 0.577513, -0.779409, -0.2429, -0.460365, 2.89815, -1.41977)
 radius = 0.135
 height = 1.0
 
 [node name="CSGCylinder3D10" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
-transform = Transform3D(0.828491, -0.559999, -0.00205248, -0.216803, -0.324124, 0.920837, -0.516333, -0.76246, -0.389943, -0.217561, 3.96912, -0.580479)
+transform = Transform3D(0.828491, -0.559999, -0.00205248, -0.216803, -0.324124, 0.920837, -0.516333, -0.76246, -0.389943, -0.48292, 3.13706, -0.580479)
 radius = 0.135
 height = 1.0
 
@@ -376,7 +371,7 @@ visible = false
 height = 1.04
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Actor/Player/Skateboard/Deck/Character"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.79994, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17558, 3.96788, 0)
 
 [node name="Wood" type="CSGPolygon3D" parent="Actor/Player/Skateboard/Deck"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.5, 0, 1)
