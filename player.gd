@@ -29,7 +29,6 @@ var angle := 0.0
 var last_turn := 0.0
 var turn_dir := 0.0
 var turn_diff := 0.0
-@export var carve_lerp = 15.0
 @export var turn_lerp := 12.0
 @export var power_lerp := 2.0
 @export var curvy : Curve
@@ -77,7 +76,7 @@ func _physics_process(delta):
 	UI.move_notch(input_dir.x)
 	
 	last_turn = turn_dir
-	turn_dir = lerp(turn_dir, input_dir.x, carve_lerp * delta)
+	turn_dir = input_dir.x
 	turn_diff = abs(turn_dir - last_turn)
 	
 	angle -= turn_dir * turn_speed * velocity.length() * delta
@@ -91,7 +90,7 @@ func _physics_process(delta):
 	
 	if is_floor:
 		# turn
-		velocity = velocity.rotated(Vector3(0,1,0), -dang * turn_lerp * curvy.sample(unfrac) * delta)
+		velocity = velocity.rotated(Vector3(0,1,0), -dang * turn_lerp * unfrac * delta)
 		
 		# carve boost
 		var vel_flat = Vector3(velocity.x, 0, velocity.z)
