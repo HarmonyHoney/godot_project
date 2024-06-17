@@ -6,6 +6,8 @@ var value := 13.27
 #@onready var label := $Label
 @onready var line := $LineEdit
 
+@export var var_name := "mouse_sens"
+
 func _ready():
 	scrollbar.scrolling.connect(scroll_test)
 	line.text_submitted.connect(line_test)
@@ -21,6 +23,7 @@ func line_test(arg):
 func test(arg):
 	value = snappedf(arg, 0.01)
 	line.text = str(value).pad_decimals(2)
-	Shared.mouse_sens = value
+	Shared.set(var_name, value)
+	
 
 

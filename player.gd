@@ -2,8 +2,8 @@ extends CharacterBody3D
 
 @onready var skateboard : Node3D = $Skateboard
 @onready var deck := $Skateboard/Deck
-@onready var axel1 := $Skateboard/Axel
-@onready var axel2 := $Skateboard/Axel2
+@onready var axel1 := $Skateboard/Axels/Axel
+@onready var axel2 := $Skateboard/Axels/Axel2
 
 @onready var debug_ray1 := $RayCast3D
 @onready var debug_ray2 := $RayCast3D2
@@ -18,8 +18,6 @@ var btnp_jump := false
 var btn_push := false
 var btnp_push := false
 var btn_brake := false
-var btn_look := false
-var btnp_look := false
 
 var angle := 0.0
 @export var turn_speed := 1.0
@@ -35,10 +33,12 @@ var turn_diff := 0.0
 @export var turn_lerp := 12.0
 @export var power_lerp := 2.0
 @export var curvy : Curve
-@export var mouse_sens := 1.0
+@export var mouse_sens := 0.06
+@export var powerslide_degrees := 33.0
 
 var mouse_vel := Vector2.ZERO
-var mouse_stance := 1.0
+
+var mouse_lean := 0.0
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -62,17 +62,19 @@ func _physics_process(delta):
 	btn_push = Input.is_action_pressed("push")
 	btnp_push = Input.is_action_just_pressed("push")
 	btn_brake = Input.is_action_pressed("brake")
-	btn_look = Input.is_action_pressed("cam_look")
-	btnp_look = Input.is_action_just_pressed("cam_look")
 	
 	# turn
 	var input_dir = Input.get_vector("left", "right", "up", "down")
+	
+	#input_dir.x = ease(abs(input_dir.x), 5.0) * sign(input_dir.x)
+	
 	# mouse control
-	if btn_look:
-		if btnp_look:
-			mouse_stance = 1.0#cam_float
-		input_dir.x = clamp(mouse_vel.x * mouse_sens * mouse_stance, -1.0, 1.0)
-		#cam.angle.y = angle
+	if !Shared.is_look:
+		input_dir.x = clamp(mouse_vel.x * Shared.carve_sens * mouse_sens, -1.0, 1.0)
+		#mouse_lean = clamp(mouse_lean + (mouse_vel.x * Shared.carve_sens * mouse_sens), -1.0, 1.0)
+		#input_dir.x = mouse_lean
+	
+	UI.move_notch(input_dir.x)
 	
 	last_turn = turn_dir
 	turn_dir = lerp(turn_dir, input_dir.x, carve_lerp * delta)
@@ -91,8 +93,12 @@ func _physics_process(delta):
 		# turn
 		velocity = velocity.rotated(Vector3(0,1,0), -dang * turn_lerp * curvy.sample(unfrac) * delta)
 		
+		# carve boost
+		var vel_flat = Vector3(velocity.x, 0, velocity.z)
+		velocity += vel_flat * carve_boost * turn_diff
+		
 		# powerslide
-		if ad > 33:
+		if ad > powerslide_degrees:
 			velocity = velocity * (1.0 - (frac * power_lerp * delta))
 		elif btn_brake:
 			velocity = velocity * (1.0 - (1.0 * power_lerp * delta))
@@ -119,3 +125,10 @@ func _physics_process(delta):
 	debug_ray2.global_rotation = Vector3.ZERO
 	
 	move_and_slide()
+	var s = ""
+	s += "speed: " + str(velocity.length())
+	s += "\nturn diff: " + str(turn_diff)
+	
+	UI.print_label(s)
+	
+	mouse_vel = Vector2.ZERO

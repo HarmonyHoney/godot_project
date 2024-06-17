@@ -55,3 +55,34 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 50
 text = "13.27"
 placeholder_text = "0"
+
+[node name="Scrolly2" type="HBoxContainer" parent="."]
+offset_left = 233.0
+offset_top = 370.0
+offset_right = 889.0
+offset_bottom = 447.0
+script = ExtResource("2_6suxi")
+var_name = "carve_sens"
+
+[node name="Label" type="Label" parent="Scrolly2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 30
+text = "Carve Sens"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HScrollBar" type="HScrollBar" parent="Scrolly2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.01
+value = 0.05
+
+[node name="LineEdit" type="LineEdit" parent="Scrolly2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "13.27"
+placeholder_text = "0"
