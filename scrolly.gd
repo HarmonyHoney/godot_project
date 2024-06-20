@@ -19,7 +19,7 @@ func _ready():
 	if line_edit:
 		line_edit.text_submitted.connect(line_test)
 	if check_button:
-		check_button.toggled.connet(check_toggle)
+		check_button.toggled.connect(check_toggle)
 
 func scroll_test():
 	if scrollbar:
