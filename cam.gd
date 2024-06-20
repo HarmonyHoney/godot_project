@@ -14,7 +14,7 @@ extends Node3D
 func _input(event):
 	if event is InputEventMouseMotion and !Menu.is_open and Shared.is_look:
 		var r = event.relative
-		angle -= Vector2(r.y, r.x) * Shared.mouse_sens * 0.001
+		angle -= Vector2(r.y, r.x) * Shared.look_sens * 0.001
 		var limit = PI * 0.499
 		angle = Vector2(clamp(angle.x, -limit, limit), wrapf(angle.y, 0.0, TAU))
 

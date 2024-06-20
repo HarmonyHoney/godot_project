@@ -21,6 +21,7 @@ var btn_brake := false
 
 var angle := 0.0
 @export var turn_speed := 1.0
+@export var turn_brake := 1.0
 @export var push_speed := 5.0
 @export var lean_angle := 0.25
 @export var turn_angle := 0.1
@@ -32,8 +33,9 @@ var turn_diff := 0.0
 @export var turn_lerp := 12.0
 @export var power_lerp := 2.0
 @export var curvy : Curve
-@export var mouse_sens := 0.06
+@export var mouse_sens := 0.001
 @export var powerslide_degrees := 33.0
+@export var max_vel_length := 100.0
 
 var mouse_vel := Vector2.ZERO
 
@@ -79,7 +81,7 @@ func _physics_process(delta):
 	turn_dir = input_dir.x
 	turn_diff = abs(turn_dir - last_turn)
 	
-	angle -= turn_dir * turn_speed * velocity.length() * delta
+	angle -= turn_dir * (turn_brake if btn_brake else turn_speed) * min(velocity.length(), max_vel_length) * delta
 	angle = wrapf(angle, 0.0, TAU)
 	rotation.y = angle
 	var ffloor = float(is_floor)
@@ -89,7 +91,7 @@ func _physics_process(delta):
 	deck.rotation.z = turn_dir * lean_angle * cam_float * ffloor 
 	
 	if is_floor:
-		# turn
+		# turn velocity
 		if !btn_brake:
 			velocity = velocity.rotated(Vector3(0,1,0), -dang * turn_lerp * unfrac * delta)
 		

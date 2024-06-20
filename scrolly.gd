@@ -1,29 +1,45 @@
 extends HBoxContainer
 
-var value := 13.27
+var value = 13.27
 
-@onready var scrollbar := $HScrollBar
-#@onready var label := $Label
-@onready var line := $LineEdit
+@export var var_name := "look_sens"
 
-@export var var_name := "mouse_sens"
+@export var scrollbar_path : NodePath = ""
+@onready var scrollbar := get_node_or_null(scrollbar_path)
+
+@export var line_edit_path : NodePath = ""
+@onready var line_edit := get_node_or_null(line_edit_path)
+
+@export var check_button_path : NodePath = ""
+@onready var check_button := get_node_or_null(check_button_path)
 
 func _ready():
-	scrollbar.scrolling.connect(scroll_test)
-	line.text_submitted.connect(line_test)
-	scroll_test()
+	if scrollbar:
+		scrollbar.scrolling.connect(scroll_test)
+	if line_edit:
+		line_edit.text_submitted.connect(line_test)
+	if check_button:
+		check_button.toggled.connet(check_toggle)
 
 func scroll_test():
-	test(scrollbar.value)
+	if scrollbar:
+		test(scrollbar.value)
 
 func line_test(arg):
 	test(float(arg))
-	scrollbar.value = value
+	if scrollbar:
+		scrollbar.value = value
 
 func test(arg):
 	value = snappedf(arg, 0.01)
-	line.text = str(value).pad_decimals(2)
-	Shared.set(var_name, value)
-	
+	line_edit.text = str(value).pad_decimals(2)
+	assign()
 
+func check_toggle(arg := false):
+	value = arg
+	check_button.text = str(value)
+	assign()
+
+func assign():
+	Shared.set(var_name, value)
 
