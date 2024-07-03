@@ -10,6 +10,8 @@ extends Node3D
 @export var lerp_angle := Vector2.ONE
 @export var resting_yaw := 30.0
 
+@export var scroll_speed := 0.1
+@export var max_zoom := 10.0
 
 func _input(event):
 	if event is InputEventMouseMotion and !Menu.is_open and Shared.is_look:
@@ -17,6 +19,11 @@ func _input(event):
 		angle -= Vector2(r.y, r.x) * Shared.look_sens * 0.001
 		var limit = PI * 0.499
 		angle = Vector2(clamp(angle.x, -limit, limit), wrapf(angle.y, 0.0, TAU))
+	
+	var zi = event.is_action_pressed("zoom_in")
+	var zo = event.is_action_pressed("zoom_out")
+	if zi or zo:
+		cam.position.z = clamp(cam.position.z + scroll_speed * (-1 if zi else 1), 0.0, max_zoom)
 
 func _process(delta):
 	var joy = Input.get_vector("look_left", "look_right", "look_up", "look_down")

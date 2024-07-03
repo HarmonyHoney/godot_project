@@ -47,6 +47,7 @@ func _input(event):
 	
 	if event.is_action_pressed("debug_reset"):
 		get_tree().reload_current_scene()
+	
 
 func _physics_process(delta):
 	var q = PI * 0.5
@@ -88,7 +89,8 @@ func _physics_process(delta):
 	axel1.rotation.y = -turn_dir * turn_angle * cam_float * ffloor 
 	axel2.rotation.y = turn_dir * turn_angle * cam_float * ffloor
 	# lean
-	deck.rotation.z = turn_dir * lean_angle * cam_float * ffloor 
+	deck.rotation.z = turn_dir * lean_angle * cam_float * ffloor
+	
 	
 	if is_floor:
 		# turn velocity
