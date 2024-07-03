@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends RigidBody3D
 
 @onready var skateboard : Node3D = $Skateboard
 @onready var deck := $Skateboard/Deck
@@ -41,6 +41,8 @@ var mouse_vel := Vector2.ZERO
 
 var mouse_lean := 0.0
 
+var velocity := Vector3.ZERO
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_vel = event.relative
@@ -59,7 +61,7 @@ func _physics_process(delta):
 	var frac = ad / 90.0
 	var unfrac = 1.0 - frac
 	
-	is_floor = is_on_floor()
+	is_floor = false#is_on_floor()
 	btnp_jump = Input.is_action_just_pressed("jump")
 	btn_push = Input.is_action_pressed("push")
 	btnp_push = Input.is_action_just_pressed("push")
@@ -128,7 +130,7 @@ func _physics_process(delta):
 	debug_ray2.target_position = Vector3(0, 0, 5.0).rotated(Vector3(0,1,0), angle)
 	debug_ray2.global_rotation = Vector3.ZERO
 	
-	move_and_slide()
+	#move_and_slide()
 	var s = ""
 	s += "speed: " + str(velocity.length())
 	s += "\nturn diff: " + str(turn_diff)

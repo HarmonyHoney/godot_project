@@ -71,8 +71,8 @@ albedo_color = Color(1, 0.537255, 0, 1)
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xpr0y"]
-height = 3.0
+[sub_resource type="SphereShape3D" id="SphereShape3D_wawwe"]
+radius = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0g5d"]
 albedo_color = Color(0.831373, 0.443137, 0, 1)
@@ -281,8 +281,8 @@ resting_yaw = -10.0
 [node name="Camera3D" type="Camera3D" parent="Actor/Camera"]
 fov = 110.0
 
-[node name="Player" type="CharacterBody3D" parent="Actor" node_paths=PackedStringArray("cam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09029, -2.70737)
+[node name="Player" type="RigidBody3D" parent="Actor" node_paths=PackedStringArray("cam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.052, 10.8645, -35.955)
 script = ExtResource("2_pcxv5")
 cam = NodePath("../Camera")
 turn_speed = 0.5
@@ -296,6 +296,13 @@ curvy = SubResource("Curve_e7ww2")
 powerslide_degrees = 75.0
 max_vel_length = 80.0
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/Player"]
+shape = SubResource("SphereShape3D_wawwe")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Actor/Player"]
+visible = false
+radius = 1.0
+
 [node name="RayCast3D" type="RayCast3D" parent="Actor/Player"]
 debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 5
@@ -303,15 +310,6 @@ debug_shape_thickness = 5
 [node name="RayCast3D2" type="RayCast3D" parent="Actor/Player"]
 debug_shape_custom_color = Color(0, 0, 1, 1)
 debug_shape_thickness = 5
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/Player"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.5, 0)
-shape = SubResource("CapsuleShape3D_xpr0y")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Actor/Player"]
-visible = false
-height = 1.5
-material = SubResource("StandardMaterial3D_6yn54")
 
 [node name="Skateboard" type="Node3D" parent="Actor/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.809905, 0)
@@ -503,7 +501,7 @@ sides = 12
 material = SubResource("StandardMaterial3D_4w84n")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Actor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4718, 9.60765, -41.1037)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7552, 10.4435, -34.3571)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/RigidBody3D"]
 shape = SubResource("SphereShape3D_18qcr")
