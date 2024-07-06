@@ -79,7 +79,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 min_value = 0.01
 max_value = 30.0
-value = 0.05
+value = 16.0
 
 [node name="LineEdit" type="LineEdit" parent="Scrolly2"]
 layout_mode = 2
@@ -124,5 +124,4 @@ placeholder_text = "0"
 
 [node name="CheckButton" type="CheckButton" parent="Scrolly3"]
 layout_mode = 2
-button_pressed = true
 text = "true"

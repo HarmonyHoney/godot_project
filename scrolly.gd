@@ -16,10 +16,13 @@ var value = 13.27
 func _ready():
 	if scrollbar:
 		scrollbar.scrolling.connect(scroll_test)
+		scroll_test()
 	if line_edit:
 		line_edit.text_submitted.connect(line_test)
+		line_test(line_edit.text)
 	if check_button:
 		check_button.toggled.connect(check_toggle)
+		check_toggle(check_button.button_pressed)
 
 func scroll_test():
 	if scrollbar:

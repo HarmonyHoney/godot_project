@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cjkq8kpxelrnd"]
+[gd_scene load_steps=28 format=3 uid="uid://cjkq8kpxelrnd"]
 
 [ext_resource type="Texture2D" uid="uid://co0p64htn7wna" path="res://addons/TerrainPlugin/TestTextures/512x512 Texel Density Texture 1.png" id="1_bm61s"]
 [ext_resource type="Texture2D" uid="uid://6ashjiy2mxqq" path="res://icon.svg" id="1_ietif"]
@@ -64,15 +64,19 @@ albedo_texture = ExtResource("1_ietif")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0deu5"]
 albedo_color = Color(0.838897, 0.838897, 0.838897, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_c48ss"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syy88"]
 albedo_color = Color(1, 0.537255, 0, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k0gjc"]
+radius = 0.7
 
 [sub_resource type="Curve" id="Curve_e7ww2"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wawwe"]
-radius = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0g5d"]
 albedo_color = Color(0.831373, 0.443137, 0, 1)
@@ -110,12 +114,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_m7thr")
 shape = SubResource("WorldBoundaryShape3D_fpq4c")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(-0.221964, -4.99507, -1.82276e-07, -1.12383e-07, 1.87449e-07, -5, 4.99507, -0.221964, -1.20593e-07, 11.3832, 5.71815, -15.2217)
+transform = Transform3D(4.88603, -1.06145, -1.34941e-07, -9.53674e-08, 1.96652e-07, -5, 1.06145, 4.88603, 1.71924e-07, 11.3832, 5.71815, -15.2217)
 mesh = SubResource("TorusMesh_w6mi8")
 script = SubResource("GDScript_uom4i")
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(-0.789438, 0.613828, 4.33197e-08, -3.06145e-08, 3.11999e-08, -1, -0.613828, -0.789438, -5.83836e-09, -7.00515, 1.62014, 5.15216)
+transform = Transform3D(0.626591, -0.779346, 4.35731e-08, 3.00101e-08, -3.17817e-08, -1, 0.779346, 0.626591, 3.47413e-09, -7.00515, 1.62014, 5.15216)
 mesh = SubResource("TorusMesh_w6mi8")
 material = SubResource("StandardMaterial3D_l6a0e")
 script = SubResource("GDScript_uom4i")
@@ -131,23 +135,77 @@ material_override = SubResource("StandardMaterial3D_0deu5")
 use_collision = true
 size = Vector3(50, 1, 50)
 
-[node name="Box2" type="CSGBox3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9113, 0.5, -0.708)
-material_override = SubResource("StandardMaterial3D_6yn54")
-use_collision = true
+[node name="PropBox" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9113, 0.5, 0.146247)
 
-[node name="Box3" type="CSGBox3D" parent="Stage"]
+[node name="Box" type="CSGBox3D" parent="Stage/PropBox"]
+material_override = SubResource("StandardMaterial3D_6yn54")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox"]
+shape = SubResource("BoxShape3D_c48ss")
+
+[node name="PropBox2" type="RigidBody3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.59357, 0.5, 28.3928)
-material_override = SubResource("StandardMaterial3D_6yn54")
-use_collision = true
 
-[node name="Box4" type="CSGBox3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.0373, 0.5, -36.9746)
+[node name="Box" type="CSGBox3D" parent="Stage/PropBox2"]
 material_override = SubResource("StandardMaterial3D_6yn54")
-use_collision = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox2"]
+shape = SubResource("BoxShape3D_c48ss")
+
+[node name="PropBox3" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.9347, 0.5, -37.1484)
+
+[node name="Box" type="CSGBox3D" parent="Stage/PropBox3"]
+material_override = SubResource("StandardMaterial3D_6yn54")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox3"]
+shape = SubResource("BoxShape3D_c48ss")
+
+[node name="PropBox4" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.2063, 0.5, -40.0253)
+
+[node name="Box" type="CSGBox3D" parent="Stage/PropBox4"]
+material_override = SubResource("StandardMaterial3D_6yn54")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox4"]
+shape = SubResource("BoxShape3D_c48ss")
+
+[node name="PropBox5" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.1823, 0.5, -43.7899)
+
+[node name="Box" type="CSGBox3D" parent="Stage/PropBox5"]
+material_override = SubResource("StandardMaterial3D_6yn54")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox5"]
+shape = SubResource("BoxShape3D_c48ss")
+
+[node name="PropBox6" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.8276, 0.499996, -35.7973)
+
+[node name="Box" type="CSGBox3D" parent="Stage/PropBox6"]
+material_override = SubResource("StandardMaterial3D_6yn54")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox6"]
+shape = SubResource("BoxShape3D_c48ss")
+
+[node name="PropBox7" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.3958, 0.499996, -48.2678)
+
+[node name="Box" type="CSGBox3D" parent="Stage/PropBox7"]
+material_override = SubResource("StandardMaterial3D_6yn54")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox7"]
+shape = SubResource("BoxShape3D_c48ss")
 
 [node name="Box9" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -13.102, 0, -37.963)
+material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
+size = Vector3(10, 10, 10)
+
+[node name="Box14" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -13.102, 0, 11.7373)
 material_override = SubResource("StandardMaterial3D_6yn54")
 use_collision = true
 size = Vector3(10, 10, 10)
@@ -170,99 +228,245 @@ material_override = SubResource("StandardMaterial3D_6yn54")
 use_collision = true
 size = Vector3(10, 10, 10)
 
-[node name="Box5" type="CSGBox3D" parent="Stage"]
+[node name="Wall" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_6yn54")
 use_collision = true
 size = Vector3(1, 1, 300)
 
-[node name="Box6" type="CSGBox3D" parent="Stage"]
+[node name="Wall2" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_6yn54")
 use_collision = true
 size = Vector3(1, 1, 300)
 
-[node name="Box7" type="CSGBox3D" parent="Stage"]
+[node name="Wall3" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.5, 150)
 material_override = SubResource("StandardMaterial3D_6yn54")
 use_collision = true
 size = Vector3(1, 1, 300)
 
-[node name="Box8" type="CSGBox3D" parent="Stage"]
+[node name="Wall4" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.5, -150)
 material_override = SubResource("StandardMaterial3D_6yn54")
 use_collision = true
 size = Vector3(1, 1, 300)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage"]
+[node name="PropCone" type="RigidBody3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35252, 1, -4.03371)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
 
-[node name="Cone2" type="CSGCylinder3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2391, 1, 37.5572)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone2" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.1164, 1, -4.08175)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone2"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
 
-[node name="Cone3" type="CSGCylinder3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.0975, 1, -4.03371)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone2"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone3" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.1372, 1, -4.03235)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone3"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
 
-[node name="Cone4" type="CSGCylinder3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.601, 1, 34.6333)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone3"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone4" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.1502, 1, -10.335)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone4"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
 
-[node name="Cone5" type="CSGCylinder3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.0955, 1, -4.03371)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone4"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone5" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.385, 1, -6.50097)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone5"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
 
-[node name="Cone6" type="CSGCylinder3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.8946, 1, -9.91025)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone5"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone6" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.4408, 1, -7.10002)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone6"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
 
-[node name="Cone7" type="CSGCylinder3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.4605, 1, -6.28668)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone6"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone7" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.1477, 1, -18.6792)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone7"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
 
-[node name="Cone8" type="CSGCylinder3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.1608, 1, -7.42703)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone7"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone8" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.2291, 1, -23.9265)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone8"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
 
-[node name="Cone9" type="CSGCylinder3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.0005, 1, -18.861)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone8"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone9" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.8346, 1, 9.21824)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone9"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
 
-[node name="Cone10" type="CSGCylinder3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.6237, 1, -23.678)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone9"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone10" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.2719, 1, 8.81837)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone10"]
 use_collision = true
 radius = 0.77
 cone = true
 material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone10"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone11" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.1369, 1, 12.5653)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone11"]
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone11"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone12" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.1369, 1, 12.5653)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone12"]
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone12"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone13" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.6145, 1, 15.5959)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone13"]
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone13"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone14" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.6145, 1, 5.59585)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone14"]
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone14"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone15" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.6145, 1, 6.59585)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone15"]
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone15"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone16" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.0764, 1, 11.3922)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone16"]
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone16"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone17" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.249, 1, 34.8202)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone17"]
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone17"]
+shape = SubResource("CylinderShape3D_k0gjc")
+
+[node name="PropCone18" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6212, 1, 37.8993)
+
+[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone18"]
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone18"]
+shape = SubResource("CylinderShape3D_k0gjc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, -0.456058, 0.88995, 0, -0.88995, -0.456058, 1.68758, 4.37965, -2.92982)
@@ -276,9 +480,10 @@ target_node = NodePath("../Player")
 follow_offset = Vector3(0, 0.5, 0)
 joy_sens = 3.0
 lerp_angle = Vector2(1, 10)
-resting_yaw = -10.0
+resting_yaw = -15.0
 
 [node name="Camera3D" type="Camera3D" parent="Actor/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 fov = 110.0
 
 [node name="Player" type="RigidBody3D" parent="Actor" node_paths=PackedStringArray("cam")]
@@ -303,197 +508,223 @@ shape = SubResource("SphereShape3D_wawwe")
 visible = false
 radius = 1.0
 
-[node name="RayCast3D" type="RayCast3D" parent="Actor/Player"]
+[node name="Ray" type="Node3D" parent="Actor/Player"]
+
+[node name="Cast1" type="RayCast3D" parent="Actor/Player/Ray"]
 debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 5
 
-[node name="RayCast3D2" type="RayCast3D" parent="Actor/Player"]
+[node name="Cast2" type="RayCast3D" parent="Actor/Player/Ray"]
 debug_shape_custom_color = Color(0, 0, 1, 1)
 debug_shape_thickness = 5
 
-[node name="Skateboard" type="Node3D" parent="Actor/Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.809905, 0)
+[node name="Cast3" type="RayCast3D" parent="Actor/Player/Ray"]
+target_position = Vector3(0, -2, 0)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 5
 
-[node name="Deck" type="Node3D" parent="Actor/Player/Skateboard"]
+[node name="Cast4" type="RayCast3D" parent="Actor/Player/Ray"]
+target_position = Vector3(0, -1.3, 0)
+debug_shape_custom_color = Color(1, 1, 0, 1)
+debug_shape_thickness = 5
+
+[node name="Board" type="Node3D" parent="Actor/Player/Ray"]
+
+[node name="Center" type="Node3D" parent="Actor/Player"]
+
+[node name="Ray1" type="RayCast3D" parent="Actor/Player/Center"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0139999, 1, 0.891998)
+target_position = Vector3(0, -2, 0)
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="Ray2" type="RayCast3D" parent="Actor/Player/Center"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0139999, 1, -0.891998)
+target_position = Vector3(0, -2, 0)
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="Skateboard" type="Node3D" parent="Actor/Player/Center"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Deck" type="Node3D" parent="Actor/Player/Center/Skateboard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 
-[node name="Character" type="Node3D" parent="Actor/Player/Skateboard/Deck"]
+[node name="Character" type="Node3D" parent="Actor/Player/Center/Skateboard/Deck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.400988, 0)
 visible = false
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(0.866025, 0.5, 0, -0.433313, 0.750521, 0.498957, 0.249478, -0.432109, 0.866627, 0.264775, 0.850688, 0.710679)
 radius = 0.135
 height = 1.0
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(0.817155, -0.576418, 2.03034e-08, 0.546465, 0.774692, 0.318165, -0.183396, -0.25999, 0.948035, 0.264775, 1.74136, 0.395414)
 radius = 0.135
 height = 1.0
 
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(0.866025, 0.5, 0, -0.367706, 0.636885, -0.677621, -0.33881, 0.586837, 0.735412, 0.264775, 0.850688, -0.62085)
 radius = 0.135
 height = 1.0
 
-[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(0.817155, -0.576418, 4.06069e-08, 0.554445, 0.786005, -0.273472, 0.157634, 0.223469, 0.96188, 0.264775, 1.74136, -0.245213)
 radius = 0.135
 height = 1.0
 
-[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(0.995146, -0.0984166, 0, 0.0984166, 0.995146, 0, 0, 0, 1, -0.135743, 2.71998, 0)
 radius = 0.135
 height = 1.0
 
-[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(0.803795, 0.594903, 0.00218041, -0.234435, 0.313381, 0.920235, 0.546767, -0.740191, 0.39136, -0.460365, 3.10127, 0.722126)
 radius = 0.135
 height = 1.0
 
-[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(0.828491, -0.559999, -0.0020525, 0.108129, 0.156374, 0.981761, -0.549465, -0.813602, 0.190106, -0.48292, 2.8499, 1.55875)
 radius = 0.135
 height = 1.0
 
-[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(0.803795, 0.594903, 0.0021804, 0.142802, -0.196501, 0.970049, 0.577513, -0.779409, -0.2429, -0.460365, 2.89815, -1.41977)
 radius = 0.135
 height = 1.0
 
-[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(0.828491, -0.559999, -0.00205248, -0.216803, -0.324124, 0.920837, -0.516333, -0.76246, -0.389943, -0.48292, 3.13706, -0.580479)
 radius = 0.135
 height = 1.0
 
-[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.93113, 0)
 visible = false
 height = 1.04
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Actor/Player/Skateboard/Deck/Character"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Actor/Player/Center/Skateboard/Deck/Character"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17558, 3.96788, 0)
 
-[node name="Wood" type="CSGPolygon3D" parent="Actor/Player/Skateboard/Deck"]
+[node name="Wood" type="CSGPolygon3D" parent="Actor/Player/Center/Skateboard/Deck"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.5, 0, 1)
 polygon = PackedVector2Array(0, 0, 0, 2, 0.3, 2.5, 0.7, 2.5, 1, 2, 1, 0, 0.7, -0.5, 0.3, -0.5)
 depth = 0.11
 material = SubResource("StandardMaterial3D_c0g5d")
 
-[node name="Griptape" type="CSGPolygon3D" parent="Actor/Player/Skateboard/Deck/Wood"]
+[node name="Griptape" type="CSGPolygon3D" parent="Actor/Player/Center/Skateboard/Deck/Wood"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.03)
 polygon = PackedVector2Array(0, 0, 0, 2, 0.3, 2.5, 0.7, 2.5, 1, 2, 1, 0, 0.7, -0.5, 0.3, -0.5)
 depth = 0.04
 material = SubResource("StandardMaterial3D_ktwxh")
 
-[node name="GobotSkin" parent="Actor/Player/Skateboard/Deck/Wood" instance=ExtResource("4_8bofq")]
+[node name="GobotSkin" parent="Actor/Player/Center/Skateboard/Deck/Wood" instance=ExtResource("4_8bofq")]
 transform = Transform3D(0.174312, -1.58615e-07, 1.99239, 1.99239, -8.70901e-08, -0.174312, 1.00583e-07, 2, 1.50421e-07, 0.5, 1, 0.0430832)
 visible = false
 
-[node name="Bolts" type="Node3D" parent="Actor/Player/Skateboard/Deck/Wood"]
+[node name="Bolts" type="Node3D" parent="Actor/Player/Center/Skateboard/Deck/Wood"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.514, 0.108, 0.034)
 
-[node name="Bolt" type="MeshInstance3D" parent="Actor/Player/Skateboard/Deck/Wood/Bolts"]
+[node name="Bolt" type="MeshInstance3D" parent="Actor/Player/Center/Skateboard/Deck/Wood/Bolts"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0997956, 0.100404, 0.000272274)
 mesh = SubResource("PlaneMesh_j5u2y")
 skeleton = NodePath("../..")
 
-[node name="Bolt3" type="MeshInstance3D" parent="Actor/Player/Skateboard/Deck/Wood/Bolts"]
+[node name="Bolt3" type="MeshInstance3D" parent="Actor/Player/Center/Skateboard/Deck/Wood/Bolts"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.100204, 0.100404, 0.000272274)
 mesh = SubResource("PlaneMesh_j5u2y")
 skeleton = NodePath("../..")
 
-[node name="Bolt2" type="MeshInstance3D" parent="Actor/Player/Skateboard/Deck/Wood/Bolts"]
+[node name="Bolt2" type="MeshInstance3D" parent="Actor/Player/Center/Skateboard/Deck/Wood/Bolts"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0997956, -0.0995961, 0.000272274)
 mesh = SubResource("PlaneMesh_j5u2y")
 skeleton = NodePath("../..")
 
-[node name="Bolt4" type="MeshInstance3D" parent="Actor/Player/Skateboard/Deck/Wood/Bolts"]
+[node name="Bolt4" type="MeshInstance3D" parent="Actor/Player/Center/Skateboard/Deck/Wood/Bolts"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.100204, -0.0995961, 0.000272274)
 mesh = SubResource("PlaneMesh_j5u2y")
 skeleton = NodePath("../..")
 
-[node name="Bolts2" type="Node3D" parent="Actor/Player/Skateboard/Deck/Wood"]
+[node name="Bolts2" type="Node3D" parent="Actor/Player/Center/Skateboard/Deck/Wood"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.514, 1.892, 0.034)
 
-[node name="Bolt" type="MeshInstance3D" parent="Actor/Player/Skateboard/Deck/Wood/Bolts2"]
+[node name="Bolt" type="MeshInstance3D" parent="Actor/Player/Center/Skateboard/Deck/Wood/Bolts2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0997956, 0.100404, 0.000272274)
 mesh = SubResource("PlaneMesh_j5u2y")
 skeleton = NodePath("../..")
 
-[node name="Bolt3" type="MeshInstance3D" parent="Actor/Player/Skateboard/Deck/Wood/Bolts2"]
+[node name="Bolt3" type="MeshInstance3D" parent="Actor/Player/Center/Skateboard/Deck/Wood/Bolts2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.100204, 0.100404, 0.000272274)
 mesh = SubResource("PlaneMesh_j5u2y")
 skeleton = NodePath("../..")
 
-[node name="Bolt2" type="MeshInstance3D" parent="Actor/Player/Skateboard/Deck/Wood/Bolts2"]
+[node name="Bolt2" type="MeshInstance3D" parent="Actor/Player/Center/Skateboard/Deck/Wood/Bolts2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0997956, -0.0995961, 0.000272274)
 mesh = SubResource("PlaneMesh_j5u2y")
 skeleton = NodePath("../..")
 
-[node name="Bolt4" type="MeshInstance3D" parent="Actor/Player/Skateboard/Deck/Wood/Bolts2"]
+[node name="Bolt4" type="MeshInstance3D" parent="Actor/Player/Center/Skateboard/Deck/Wood/Bolts2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.100204, -0.0995961, 0.000272274)
 mesh = SubResource("PlaneMesh_j5u2y")
 skeleton = NodePath("../..")
 
-[node name="Axels" type="Node3D" parent="Actor/Player/Skateboard"]
+[node name="Axels" type="Node3D" parent="Actor/Player/Center/Skateboard"]
 
-[node name="Axel" type="Node3D" parent="Actor/Player/Skateboard/Axels"]
+[node name="Axel" type="Node3D" parent="Actor/Player/Center/Skateboard/Axels"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.0142044, 0, 0.891596)
 
-[node name="Truck" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Axels/Axel"]
+[node name="Truck" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Axels/Axel"]
 radius = 0.043
 height = 0.59
 sides = 12
 material = SubResource("StandardMaterial3D_4w84n")
 
-[node name="Wheel" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Axels/Axel"]
+[node name="Wheel" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Axels/Axel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.375957, 0)
 radius = 0.12
 height = 0.206
 sides = 12
 material = SubResource("StandardMaterial3D_gw2tq")
 
-[node name="Wheel2" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Axels/Axel"]
+[node name="Wheel2" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Axels/Axel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000358105, 0.404204, 0.000403881)
 radius = 0.12
 height = 0.206
 sides = 12
 material = SubResource("StandardMaterial3D_gw2tq")
 
-[node name="Axel2" type="Node3D" parent="Actor/Player/Skateboard/Axels"]
+[node name="Axel2" type="Node3D" parent="Actor/Player/Center/Skateboard/Axels"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.014, 0, -0.892)
 
-[node name="Truck" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Axels/Axel2"]
+[node name="Truck" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Axels/Axel2"]
 radius = 0.043
 height = 0.59
 sides = 12
 material = SubResource("StandardMaterial3D_4w84n")
 
-[node name="Wheel" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Axels/Axel2"]
+[node name="Wheel" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Axels/Axel2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.375957, 0)
 radius = 0.12
 height = 0.206
 sides = 12
 material = SubResource("StandardMaterial3D_gw2tq")
 
-[node name="Wheel2" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Axels/Axel2"]
+[node name="Wheel2" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Axels/Axel2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000358105, 0.404204, 0.000403881)
 radius = 0.12
 height = 0.206
 sides = 12
 material = SubResource("StandardMaterial3D_gw2tq")
 
-[node name="Baseplates" type="Node3D" parent="Actor/Player/Skateboard"]
+[node name="Baseplates" type="Node3D" parent="Actor/Player/Center/Skateboard"]
 
-[node name="Base" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Baseplates"]
+[node name="Base" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Baseplates"]
 transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0.014, 0.154352, 0.892)
 radius = 0.043
 height = 0.3
 sides = 12
 material = SubResource("StandardMaterial3D_4w84n")
 
-[node name="Base2" type="CSGCylinder3D" parent="Actor/Player/Skateboard/Baseplates"]
+[node name="Base2" type="CSGCylinder3D" parent="Actor/Player/Center/Skateboard/Baseplates"]
 transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0.014, 0.154271, -0.892)
 radius = 0.043
 height = 0.3

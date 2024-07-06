@@ -1,12 +1,17 @@
 extends RigidBody3D
 
-@onready var skateboard : Node3D = $Skateboard
-@onready var deck := $Skateboard/Deck
-@onready var axel1 := $Skateboard/Axels/Axel
-@onready var axel2 := $Skateboard/Axels/Axel2
+@onready var center : Node3D = $Center
+@onready var skateboard : Node3D = $Center/Skateboard
+@onready var deck := $Center/Skateboard/Deck
+@onready var axel1 := $Center/Skateboard/Axels/Axel
+@onready var axel2 := $Center/Skateboard/Axels/Axel2
 
-@onready var debug_ray1 := $RayCast3D
-@onready var debug_ray2 := $RayCast3D2
+@onready var ray_node := $Ray
+@onready var debug_ray1 := $Ray/Cast1
+@onready var debug_ray2 := $Ray/Cast2
+@onready var debug_ray3 := $Ray/Cast3
+@onready var debug_ray4 := $Ray/Cast4
+@onready var axel
 
 @export var jump_vel = 4.5
 @export var cam : Node
@@ -43,6 +48,10 @@ var mouse_lean := 0.0
 
 var velocity := Vector3.ZERO
 
+var last_hit := Vector3.ZERO
+var last_normal := Vector3.ZERO
+var last_dist := 0.0
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_vel = event.relative
@@ -52,6 +61,8 @@ func _input(event):
 	
 
 func _physics_process(delta):
+	velocity = linear_velocity
+	
 	var q = PI * 0.5
 	var cam_dist = wrapf(cam.angle.y + q - angle, -PI, PI)
 	var cam_float = 1 if cam_dist < 0 else -1
@@ -61,7 +72,7 @@ func _physics_process(delta):
 	var frac = ad / 90.0
 	var unfrac = 1.0 - frac
 	
-	is_floor = false#is_on_floor()
+	is_floor = debug_ray3.is_colliding()#false #is_on_floor()
 	btnp_jump = Input.is_action_just_pressed("jump")
 	btn_push = Input.is_action_pressed("push")
 	btnp_push = Input.is_action_just_pressed("push")
@@ -86,7 +97,7 @@ func _physics_process(delta):
 	
 	angle -= turn_dir * (turn_brake if btn_brake else turn_speed) * min(velocity.length(), max_vel_length) * delta
 	angle = wrapf(angle, 0.0, TAU)
-	rotation.y = angle
+	skateboard.rotation.y = angle
 	var ffloor = float(is_floor)
 	axel1.rotation.y = -turn_dir * turn_angle * cam_float * ffloor 
 	axel2.rotation.y = turn_dir * turn_angle * cam_float * ffloor
@@ -123,14 +134,35 @@ func _physics_process(delta):
 	
 	print(rad_to_deg(angle), " - ", rad_to_deg(vang), " = ", rad_to_deg(dang), " , ", frac, " cam: ", rad_to_deg(cam_dist))
 	
+	ray_node.global_rotation = Vector3.ZERO
 	# velocity
 	debug_ray1.target_position = velocity.normalized() * 5.0
-	debug_ray1.global_rotation = Vector3.ZERO
 	# angle
 	debug_ray2.target_position = Vector3(0, 0, 5.0).rotated(Vector3(0,1,0), angle)
-	debug_ray2.global_rotation = Vector3.ZERO
 	
-	#move_and_slide()
+	
+	center.global_rotation = Vector3.ZERO
+	
+	if is_floor:
+		last_hit = debug_ray3.get_collision_point()
+		last_normal = debug_ray3.get_collision_normal()
+		last_dist = debug_ray3.global_position.distance_to(last_hit)
+		
+		debug_ray4.global_position = last_hit
+		debug_ray4.target_position = last_normal * 3.0
+		
+		skateboard.rotation = Vector3(last_normal.x, skateboard.rotation.y, last_normal.z)
+		
+	else:
+		skateboard.position.y = 0
+		var l = 3.0
+		last_dist = lerp(last_dist, 0.0, l * delta)
+		skateboard.rotation.x = lerp(skateboard.rotation.x, 0.0, l * delta)
+	
+	skateboard.position.y = -last_dist
+	
+	linear_velocity = velocity
+	
 	var s = ""
 	s += "speed: " + str(velocity.length())
 	s += "\nturn diff: " + str(turn_diff)
