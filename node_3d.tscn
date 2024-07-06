@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjkq8kpxelrnd"]
+[gd_scene load_steps=30 format=3 uid="uid://cjkq8kpxelrnd"]
 
 [ext_resource type="Texture2D" uid="uid://co0p64htn7wna" path="res://addons/TerrainPlugin/TestTextures/512x512 Texel Density Texture 1.png" id="1_bm61s"]
 [ext_resource type="Texture2D" uid="uid://6ashjiy2mxqq" path="res://icon.svg" id="1_ietif"]
@@ -65,6 +65,12 @@ albedo_texture = ExtResource("1_ietif")
 albedo_color = Color(0.838897, 0.838897, 0.838897, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c48ss"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f352l"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_krtm8"]
+size = Vector3(10, 10, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syy88"]
 albedo_color = Color(1, 0.537255, 0, 1)
@@ -197,6 +203,26 @@ material_override = SubResource("StandardMaterial3D_6yn54")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox7"]
 shape = SubResource("BoxShape3D_c48ss")
+
+[node name="PropBox8" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.9484, 3.67992, -48.2678)
+
+[node name="Box" type="CSGBox3D" parent="Stage/PropBox8"]
+material_override = SubResource("StandardMaterial3D_6yn54")
+size = Vector3(3, 3, 3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox8"]
+shape = SubResource("BoxShape3D_f352l")
+
+[node name="PropBox9" type="RigidBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.1011, 9.26503, -35.0909)
+
+[node name="Box" type="CSGBox3D" parent="Stage/PropBox9"]
+material_override = SubResource("StandardMaterial3D_6yn54")
+size = Vector3(10, 10, 10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropBox9"]
+shape = SubResource("BoxShape3D_krtm8")
 
 [node name="Box9" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -13.102, 0, -37.963)
