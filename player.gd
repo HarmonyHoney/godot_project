@@ -173,8 +173,8 @@ func _physics_process(delta):
 		last_2 = last_rayboard.y - rayboard2.get_collision_point().y
 		middle = lerp(last_1, last_2, 0.5)
 		last_dist = 1.12 - middle
-		ang = (rayboard1.global_position + rayboard1.get_collision_point()).angle_to(rayboard2.global_position + rayboard2.get_collision_point())
-		skateboard.rotation.x = ang
+		ang = atan2(last_2 - last_1, 0.892 * 2)
+		skateboard.rotation.x = -ang
 	else:
 		var l = 3.0
 		last_dist = lerp(last_dist, 0.0, l * delta)
