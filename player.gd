@@ -11,7 +11,11 @@ extends RigidBody3D
 @onready var debug_ray2 := $Ray/Cast2
 @onready var debug_ray3 := $Ray/Cast3
 @onready var debug_ray4 := $Ray/Cast4
-@onready var axel
+
+@onready var rayboard := $Ray/Board
+@onready var rayboard1 := $Ray/Board/Ray1
+@onready var rayboard2 := $Ray/Board/Ray2
+@onready var last_rayboard := Vector3.ZERO
 
 @export var jump_vel = 4.5
 @export var cam : Node
@@ -51,6 +55,10 @@ var velocity := Vector3.ZERO
 var last_hit := Vector3.ZERO
 var last_normal := Vector3.ZERO
 var last_dist := 0.0
+var last_from := Vector3.ZERO
+
+var last_1 := 0.0
+var last_2 := 0.0
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -97,7 +105,6 @@ func _physics_process(delta):
 	
 	angle -= turn_dir * (turn_brake if btn_brake else turn_speed) * min(velocity.length(), max_vel_length) * delta
 	angle = wrapf(angle, 0.0, TAU)
-	skateboard.rotation.y = angle
 	var ffloor = float(is_floor)
 	axel1.rotation.y = -turn_dir * turn_angle * cam_float * ffloor 
 	axel2.rotation.y = turn_dir * turn_angle * cam_float * ffloor
@@ -146,27 +153,50 @@ func _physics_process(delta):
 	if is_floor:
 		last_hit = debug_ray3.get_collision_point()
 		last_normal = debug_ray3.get_collision_normal()
-		last_dist = debug_ray3.global_position.distance_to(last_hit)
+		last_dist = last_from.distance_to(last_hit)
 		
 		debug_ray4.global_position = last_hit
 		debug_ray4.target_position = last_normal * 3.0
 		
-		skateboard.rotation = Vector3(last_normal.x, skateboard.rotation.y, last_normal.z)
 		
+		
+	
+	
+	rayboard.rotation.y = angle
+	skateboard.rotation.y = angle
+	
+	var middle = 0.0
+	var ang = 0.0
+	
+	if rayboard1.is_colliding() and rayboard2.is_colliding():
+		last_1 = last_rayboard.y - rayboard1.get_collision_point().y
+		last_2 = last_rayboard.y - rayboard2.get_collision_point().y
+		middle = lerp(last_1, last_2, 0.5)
+		last_dist = 1.12 - middle
+		ang = (rayboard1.global_position + rayboard1.get_collision_point()).angle_to(rayboard2.global_position + rayboard2.get_collision_point())
+		skateboard.rotation.x = ang
 	else:
-		skateboard.position.y = 0
 		var l = 3.0
 		last_dist = lerp(last_dist, 0.0, l * delta)
 		skateboard.rotation.x = lerp(skateboard.rotation.x, 0.0, l * delta)
 	
-	skateboard.position.y = -last_dist
+	
+	skateboard.position.y = last_dist
+	
 	
 	linear_velocity = velocity
 	
 	var s = ""
 	s += "speed: " + str(velocity.length())
 	s += "\nturn diff: " + str(turn_diff)
+	s += "\nlast_1: " + str(last_1)
+	s += "\nlast_2: " + str(last_2)
+	s += "\nmiddle: " + str(middle)
+	s += "\nang: " + str(ang)
+	
 	
 	UI.print_label(s)
 	
 	mouse_vel = Vector2.ZERO
+	last_from = debug_ray3.global_position
+	last_rayboard = rayboard.global_position
