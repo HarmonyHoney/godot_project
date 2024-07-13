@@ -1,15 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvntsles5qqx6"]
-
-[ext_resource type="Texture2D" uid="uid://6ashjiy2mxqq" path="res://icon.svg" id="1_txxq6"]
+[gd_scene load_steps=8 format=3 uid="uid://bvntsles5qqx6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l7i2k"]
 friction = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x74tc"]
-size = Vector3(0.954078, 1, 2.32662)
+size = Vector3(1, 0.15, 3)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05r2c"]
-albedo_texture = ExtResource("1_txxq6")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_loc7p"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5k3b"]
+albedo_color = Color(0.831373, 0.443137, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2sjbb"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xmkyq"]
+size = Vector2(0.05, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ox6hj"]
+albedo_color = Color(1, 0.87451, 0, 1)
 
 [node name="Body" type="VehicleBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00169557, 0.222867, -0.0955184)
@@ -17,89 +27,209 @@ mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_l7i2k")
 center_of_mass_mode = 1
 
-[node name="Wheel1" type="VehicleWheel3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.1, 1.05)
-use_as_traction = true
-use_as_steering = true
-wheel_roll_influence = 0.4
-wheel_radius = 0.25
-wheel_friction_slip = 1.0
-suspension_stiffness = 40.0
-damping_compression = 0.88
-
-[node name="Wheel1" type="MeshInstance3D" parent="Wheel1"]
-layers = 2
-gi_mode = 2
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Wheel1"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-radius = 0.25
-height = 0.1
-
-[node name="Wheel2" type="VehicleWheel3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.1, -0.8)
-use_as_traction = true
-wheel_roll_influence = 0.4
-wheel_radius = 0.25
-wheel_friction_slip = 1.0
-suspension_stiffness = 40.0
-damping_compression = 0.88
-
-[node name="Wheel2" type="MeshInstance3D" parent="Wheel2"]
-layers = 2
-gi_mode = 2
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Wheel2"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-radius = 0.25
-height = 0.1
-
-[node name="Wheel3" type="VehicleWheel3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.1, 1.05)
-use_as_traction = true
-use_as_steering = true
-wheel_roll_influence = 0.4
-wheel_radius = 0.25
-wheel_friction_slip = 1.0
-suspension_stiffness = 40.0
-damping_compression = 0.88
-
-[node name="Wheel3" type="MeshInstance3D" parent="Wheel3"]
-layers = 2
-gi_mode = 2
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Wheel3"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-radius = 0.25
-height = 0.1
-
-[node name="Wheel4" type="VehicleWheel3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.1, -0.8)
-use_as_traction = true
-wheel_roll_influence = 0.4
-wheel_radius = 0.25
-wheel_friction_slip = 1.0
-suspension_stiffness = 40.0
-damping_compression = 0.88
-
-[node name="Wheel4" type="MeshInstance3D" parent="Wheel4"]
-layers = 2
-gi_mode = 2
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Wheel4"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-radius = 0.25
-height = 0.1
-
 [node name="Body" type="MeshInstance3D" parent="."]
 layers = 2
 gi_mode = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588269, 0.0774262)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.360829, 0)
 shape = SubResource("BoxShape3D_x74tc")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588, 0.077)
-material_override = SubResource("StandardMaterial3D_05r2c")
-size = Vector3(0.954, 1, 2.327)
+[node name="Wheel1" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.390161, 1.49012e-08, 0.891596)
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.12
+wheel_friction_slip = 1.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Wheel5" type="CSGCylinder3D" parent="Wheel1"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.12
+height = 0.206
+sides = 12
+material = SubResource("StandardMaterial3D_loc7p")
+
+[node name="Wheel2" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39, 0, 0.892)
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.12
+wheel_friction_slip = 1.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Wheel5" type="CSGCylinder3D" parent="Wheel2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.12
+height = 0.206
+sides = 12
+material = SubResource("StandardMaterial3D_loc7p")
+
+[node name="Wheel3" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39, 0, -0.892)
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.12
+wheel_friction_slip = 1.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Wheel5" type="CSGCylinder3D" parent="Wheel3"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.12
+height = 0.206
+sides = 12
+material = SubResource("StandardMaterial3D_loc7p")
+
+[node name="Wheel4" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39, 0, -0.892)
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.12
+wheel_friction_slip = 1.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Wheel5" type="CSGCylinder3D" parent="Wheel4"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.12
+height = 0.206
+sides = 12
+material = SubResource("StandardMaterial3D_loc7p")
+
+[node name="Skateboard" type="Node3D" parent="."]
+
+[node name="Deck" type="Node3D" parent="Skateboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="Wood" type="CSGPolygon3D" parent="Skateboard/Deck"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.5, 0, 1)
+polygon = PackedVector2Array(0, 0, 0, 2, 0.3, 2.5, 0.7, 2.5, 1, 2, 1, 0, 0.7, -0.5, 0.3, -0.5)
+depth = 0.11
+material = SubResource("StandardMaterial3D_x5k3b")
+
+[node name="Griptape" type="CSGPolygon3D" parent="Skateboard/Deck/Wood"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.03)
+polygon = PackedVector2Array(0, 0, 0, 2, 0.3, 2.5, 0.7, 2.5, 1, 2, 1, 0, 0.7, -0.5, 0.3, -0.5)
+depth = 0.04
+material = SubResource("StandardMaterial3D_2sjbb")
+
+[node name="Bolts" type="Node3D" parent="Skateboard/Deck/Wood"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.514, 0.108, 0.034)
+
+[node name="Bolt" type="MeshInstance3D" parent="Skateboard/Deck/Wood/Bolts"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0997956, 0.100404, 0.000272274)
+mesh = SubResource("PlaneMesh_xmkyq")
+skeleton = NodePath("../..")
+
+[node name="Bolt3" type="MeshInstance3D" parent="Skateboard/Deck/Wood/Bolts"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.100204, 0.100404, 0.000272274)
+mesh = SubResource("PlaneMesh_xmkyq")
+skeleton = NodePath("../..")
+
+[node name="Bolt2" type="MeshInstance3D" parent="Skateboard/Deck/Wood/Bolts"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0997956, -0.0995961, 0.000272274)
+mesh = SubResource("PlaneMesh_xmkyq")
+skeleton = NodePath("../..")
+
+[node name="Bolt4" type="MeshInstance3D" parent="Skateboard/Deck/Wood/Bolts"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.100204, -0.0995961, 0.000272274)
+mesh = SubResource("PlaneMesh_xmkyq")
+skeleton = NodePath("../..")
+
+[node name="Bolts2" type="Node3D" parent="Skateboard/Deck/Wood"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.514, 1.892, 0.034)
+
+[node name="Bolt" type="MeshInstance3D" parent="Skateboard/Deck/Wood/Bolts2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0997956, 0.100404, 0.000272274)
+mesh = SubResource("PlaneMesh_xmkyq")
+skeleton = NodePath("../..")
+
+[node name="Bolt3" type="MeshInstance3D" parent="Skateboard/Deck/Wood/Bolts2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.100204, 0.100404, 0.000272274)
+mesh = SubResource("PlaneMesh_xmkyq")
+skeleton = NodePath("../..")
+
+[node name="Bolt2" type="MeshInstance3D" parent="Skateboard/Deck/Wood/Bolts2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0997956, -0.0995961, 0.000272274)
+mesh = SubResource("PlaneMesh_xmkyq")
+skeleton = NodePath("../..")
+
+[node name="Bolt4" type="MeshInstance3D" parent="Skateboard/Deck/Wood/Bolts2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.100204, -0.0995961, 0.000272274)
+mesh = SubResource("PlaneMesh_xmkyq")
+skeleton = NodePath("../..")
+
+[node name="Axels" type="Node3D" parent="Skateboard"]
+
+[node name="Axel" type="Node3D" parent="Skateboard/Axels"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.0142044, 0, 0.891596)
+
+[node name="Truck" type="CSGCylinder3D" parent="Skateboard/Axels/Axel"]
+radius = 0.043
+height = 0.59
+sides = 12
+material = SubResource("StandardMaterial3D_ox6hj")
+
+[node name="Wheel" type="CSGCylinder3D" parent="Skateboard/Axels/Axel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.375957, 0)
+visible = false
+radius = 0.12
+height = 0.206
+sides = 12
+material = SubResource("StandardMaterial3D_loc7p")
+
+[node name="Wheel2" type="CSGCylinder3D" parent="Skateboard/Axels/Axel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000358105, 0.404204, 0.000403881)
+visible = false
+radius = 0.12
+height = 0.206
+sides = 12
+material = SubResource("StandardMaterial3D_loc7p")
+
+[node name="Axel2" type="Node3D" parent="Skateboard/Axels"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.014, 0, -0.892)
+
+[node name="Truck" type="CSGCylinder3D" parent="Skateboard/Axels/Axel2"]
+radius = 0.043
+height = 0.59
+sides = 12
+material = SubResource("StandardMaterial3D_ox6hj")
+
+[node name="Wheel" type="CSGCylinder3D" parent="Skateboard/Axels/Axel2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.375957, 0)
+visible = false
+radius = 0.12
+height = 0.206
+sides = 12
+material = SubResource("StandardMaterial3D_loc7p")
+
+[node name="Wheel2" type="CSGCylinder3D" parent="Skateboard/Axels/Axel2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000358105, 0.404204, 0.000403881)
+visible = false
+radius = 0.12
+height = 0.206
+sides = 12
+material = SubResource("StandardMaterial3D_loc7p")
+
+[node name="Baseplates" type="Node3D" parent="Skateboard"]
+
+[node name="Base" type="CSGCylinder3D" parent="Skateboard/Baseplates"]
+transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0.014, 0.154352, 0.892)
+radius = 0.043
+height = 0.3
+sides = 12
+material = SubResource("StandardMaterial3D_ox6hj")
+
+[node name="Base2" type="CSGCylinder3D" parent="Skateboard/Baseplates"]
+transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0.014, 0.154271, -0.892)
+radius = 0.043
+height = 0.3
+sides = 12
+material = SubResource("StandardMaterial3D_ox6hj")
