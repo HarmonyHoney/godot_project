@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvntsles5qqx6"]
+
+[ext_resource type="Texture2D" uid="uid://6ashjiy2mxqq" path="res://icon.svg" id="1_txxq6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l7i2k"]
+friction = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x74tc"]
+size = Vector3(0.954078, 1, 2.32662)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05r2c"]
+albedo_texture = ExtResource("1_txxq6")
+
+[node name="Body" type="VehicleBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00169557, 0.222867, -0.0955184)
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_l7i2k")
+center_of_mass_mode = 1
+
+[node name="Wheel1" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.1, 1.05)
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.25
+wheel_friction_slip = 1.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Wheel1" type="MeshInstance3D" parent="Wheel1"]
+layers = 2
+gi_mode = 2
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Wheel1"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.25
+height = 0.1
+
+[node name="Wheel2" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.1, -0.8)
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.25
+wheel_friction_slip = 1.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Wheel2" type="MeshInstance3D" parent="Wheel2"]
+layers = 2
+gi_mode = 2
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Wheel2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.25
+height = 0.1
+
+[node name="Wheel3" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.1, 1.05)
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.25
+wheel_friction_slip = 1.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Wheel3" type="MeshInstance3D" parent="Wheel3"]
+layers = 2
+gi_mode = 2
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Wheel3"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.25
+height = 0.1
+
+[node name="Wheel4" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.1, -0.8)
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.25
+wheel_friction_slip = 1.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Wheel4" type="MeshInstance3D" parent="Wheel4"]
+layers = 2
+gi_mode = 2
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Wheel4"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.25
+height = 0.1
+
+[node name="Body" type="MeshInstance3D" parent="."]
+layers = 2
+gi_mode = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588269, 0.0774262)
+shape = SubResource("BoxShape3D_x74tc")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588, 0.077)
+material_override = SubResource("StandardMaterial3D_05r2c")
+size = Vector3(0.954, 1, 2.327)
