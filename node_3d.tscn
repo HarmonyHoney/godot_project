@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://cjkq8kpxelrnd"]
+[gd_scene load_steps=32 format=3 uid="uid://cjkq8kpxelrnd"]
 
 [ext_resource type="Texture2D" uid="uid://co0p64htn7wna" path="res://addons/TerrainPlugin/TestTextures/512x512 Texel Density Texture 1.png" id="1_bm61s"]
 [ext_resource type="Texture2D" uid="uid://6ashjiy2mxqq" path="res://icon.svg" id="1_ietif"]
 [ext_resource type="Script" path="res://cam.gd" id="2_k2k7o"]
 [ext_resource type="Script" path="res://player.gd" id="2_pcxv5"]
+[ext_resource type="PackedScene" uid="uid://1fuldslmivgt" path="res://prop_cone.tscn" id="3_7kyvv"]
 [ext_resource type="PackedScene" uid="uid://cy36aygvs66pn" path="res://models/gobot/gobot_skin.tscn" id="4_8bofq"]
 [ext_resource type="PackedScene" uid="uid://bvntsles5qqx6" path="res://car_base.tscn" id="6_aselo"]
 
@@ -73,17 +74,12 @@ size = Vector3(3, 3, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_krtm8"]
 size = Vector3(10, 10, 10)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syy88"]
-albedo_color = Color(1, 0.537255, 0, 1)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_k0gjc"]
-radius = 0.7
-
 [sub_resource type="Curve" id="Curve_e7ww2"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wawwe"]
+radius = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0g5d"]
 albedo_color = Color(0.831373, 0.443137, 0, 1)
@@ -103,6 +99,11 @@ albedo_color = Color(0, 1, 0, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_18qcr"]
 radius = 2.0
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sa6py"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2j426"]
+radius = 0.6
+
 [node name="Node3D" type="Node3D"]
 
 [node name="Stage" type="Node3D" parent="."]
@@ -121,12 +122,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_m7thr")
 shape = SubResource("WorldBoundaryShape3D_fpq4c")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(-3.53354, 3.53752, -2.18556e-07, 1.54049e-07, -1.55036e-07, -5, -3.53752, -3.53354, 5.74578e-10, 11.3832, 5.71815, -15.2217)
+transform = Transform3D(2.78272, 4.15409, 1.76569e-07, -8.74439e-09, 2.18382e-07, -5, -4.15409, 2.78272, 1.28804e-07, 41.0595, 5.71815, 5.32687)
 mesh = SubResource("TorusMesh_w6mi8")
 script = SubResource("GDScript_uom4i")
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(-0.669433, 0.74287, 8.71336e-09, 2.59872e-08, 3.51475e-08, -1, -0.74287, -0.669433, -4.28341e-08, -7.00515, 1.62014, 5.15216)
+transform = Transform3D(0.669879, -0.742467, 2.9364e-08, -4.37051e-09, -4.34923e-08, -1, 0.742467, 0.669879, -3.23796e-08, -7.00515, 1.62014, 5.15216)
 mesh = SubResource("TorusMesh_w6mi8")
 material = SubResource("StandardMaterial3D_l6a0e")
 script = SubResource("GDScript_uom4i")
@@ -237,6 +238,12 @@ material_override = SubResource("StandardMaterial3D_6yn54")
 use_collision = true
 size = Vector3(10, 10, 10)
 
+[node name="Box17" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -13.102, 0, -10.6335)
+material_override = SubResource("StandardMaterial3D_6yn54")
+use_collision = true
+size = Vector3(10, 10, 10)
+
 [node name="Box15" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(-4.37114e-08, 0.707107, 0.707107, 0, 0.707107, -0.707107, -1, -3.09086e-08, -3.09086e-08, 20.4442, 0, -7.29768)
 material_override = SubResource("StandardMaterial3D_6yn54")
@@ -291,239 +298,64 @@ material_override = SubResource("StandardMaterial3D_6yn54")
 use_collision = true
 size = Vector3(1, 1, 300)
 
-[node name="PropCone" type="RigidBody3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35252, 1, -4.03371)
+[node name="PropCone" parent="Stage" instance=ExtResource("3_7kyvv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.35252, 1, -4.03371)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone2" type="RigidBody3D" parent="Stage"]
+[node name="PropCone19" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.1164, 1, -4.08175)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone2"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone2"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone3" type="RigidBody3D" parent="Stage"]
+[node name="PropCone2" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.1372, 1, -4.03235)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone3"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone3"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone4" type="RigidBody3D" parent="Stage"]
+[node name="PropCone3" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.1502, 1, -10.335)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone4"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone4"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone5" type="RigidBody3D" parent="Stage"]
+[node name="PropCone4" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.385, 1, -6.50097)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone5"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone5"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone6" type="RigidBody3D" parent="Stage"]
+[node name="PropCone5" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.4408, 1, -7.10002)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone6"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone6"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone7" type="RigidBody3D" parent="Stage"]
+[node name="PropCone6" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.1477, 1, -18.6792)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone7"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone7"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone8" type="RigidBody3D" parent="Stage"]
+[node name="PropCone7" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.2291, 1, -23.9265)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone8"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone8"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone9" type="RigidBody3D" parent="Stage"]
+[node name="PropCone8" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.8346, 1, 9.21824)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone9"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone9"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone10" type="RigidBody3D" parent="Stage"]
+[node name="PropCone9" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.2719, 1, 8.81837)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone10"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone10"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone11" type="RigidBody3D" parent="Stage"]
+[node name="PropCone10" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.1369, 1, 12.5653)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone11"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone11"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone12" type="RigidBody3D" parent="Stage"]
+[node name="PropCone11" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.1369, 1, 12.5653)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone12"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone12"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone13" type="RigidBody3D" parent="Stage"]
+[node name="PropCone12" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.6145, 1, 15.5959)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone13"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone13"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone14" type="RigidBody3D" parent="Stage"]
+[node name="PropCone13" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.6145, 1, 5.59585)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone14"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone14"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone15" type="RigidBody3D" parent="Stage"]
+[node name="PropCone14" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.6145, 1, 6.59585)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone15"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone15"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone16" type="RigidBody3D" parent="Stage"]
+[node name="PropCone15" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.0764, 1, 11.3922)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone16"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone16"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone17" type="RigidBody3D" parent="Stage"]
+[node name="PropCone16" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.249, 1, 34.8202)
 
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone17"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone17"]
-shape = SubResource("CylinderShape3D_k0gjc")
-
-[node name="PropCone18" type="RigidBody3D" parent="Stage"]
+[node name="PropCone17" parent="Stage" instance=ExtResource("3_7kyvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6212, 1, 37.8993)
-
-[node name="Cone" type="CSGCylinder3D" parent="Stage/PropCone18"]
-use_collision = true
-radius = 0.77
-cone = true
-material = SubResource("StandardMaterial3D_syy88")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/PropCone18"]
-shape = SubResource("CylinderShape3D_k0gjc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, -0.456058, 0.88995, 0, -0.88995, -0.456058, 1.68758, 4.37965, -2.92982)
 
 [node name="Actor" type="Node3D" parent="."]
-
-[node name="Camera" type="Node3D" parent="Actor" node_paths=PackedStringArray("target_node")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-script = ExtResource("2_k2k7o")
-target_node = NodePath("../Player")
-follow_offset = Vector3(0, 0.5, 0)
-joy_sens = 3.0
-lerp_angle = Vector2(1, 10)
-resting_yaw = -15.0
-
-[node name="Camera3D" type="Camera3D" parent="Actor/Camera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
-fov = 110.0
 
 [node name="Player" type="RigidBody3D" parent="Actor" node_paths=PackedStringArray("cam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.052, 10.8645, -35.955)
@@ -770,8 +602,21 @@ height = 0.3
 sides = 12
 material = SubResource("StandardMaterial3D_4w84n")
 
+[node name="Camera" type="Node3D" parent="Actor" node_paths=PackedStringArray("target_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+script = ExtResource("2_k2k7o")
+target_node = NodePath("../Player")
+follow_offset = Vector3(0, 0.5, 0)
+joy_sens = 3.0
+lerp_angle = Vector2(1, 10)
+resting_yaw = -15.0
+
+[node name="Camera3D" type="Camera3D" parent="Actor/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+fov = 110.0
+
 [node name="RigidBody3D" type="RigidBody3D" parent="Actor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7552, 10.4435, -34.3571)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7552, 10.4435, -8.18217)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/RigidBody3D"]
 shape = SubResource("SphereShape3D_18qcr")
@@ -779,5 +624,55 @@ shape = SubResource("SphereShape3D_18qcr")
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Actor/RigidBody3D"]
 radius = 2.0
 
+[node name="RigidBody3D2" type="RigidBody3D" parent="Actor"]
+transform = Transform3D(0.311058, -0.950391, 0, 0.950391, 0.311058, 0, 0, 0, 1, -2.41265, 10.4435, -38.0115)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/RigidBody3D2"]
+shape = SubResource("CylinderShape3D_sa6py")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Actor/RigidBody3D2"]
+
+[node name="RigidBody3D3" type="RigidBody3D" parent="Actor"]
+transform = Transform3D(-0.372761, -0.927927, 0, 0.927927, -0.372761, 0, 0, 0, 1, 1.59309, 10.4435, -38.0115)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/RigidBody3D3"]
+shape = SubResource("CylinderShape3D_sa6py")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Actor/RigidBody3D3"]
+
+[node name="RigidBody3D4" type="RigidBody3D" parent="Actor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7552, 10.4435, -41.0765)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/RigidBody3D4"]
+shape = SubResource("SphereShape3D_18qcr")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Actor/RigidBody3D4"]
+radius = 2.0
+
+[node name="RigidBody3D5" type="RigidBody3D" parent="Actor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.531, 10.8741, -5.44235)
+mass = 0.01
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/RigidBody3D5"]
+shape = SubResource("SphereShape3D_2j426")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Actor/RigidBody3D5"]
+radius = 0.6
+
+[node name="PinJoint3D" type="PinJoint3D" parent="Actor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.531, 12.4854, -5.44235)
+node_a = NodePath("../RigidBody3D5")
+node_b = NodePath("../RigidBody3D6")
+
+[node name="RigidBody3D6" type="RigidBody3D" parent="Actor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5746, 10.9564, -5.44235)
+mass = 0.01
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/RigidBody3D6"]
+shape = SubResource("SphereShape3D_2j426")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Actor/RigidBody3D6"]
+radius = 0.6
+
 [node name="Body" parent="." instance=ExtResource("6_aselo")]
-transform = Transform3D(0.944554, 0, 0.328356, 0, 1, 0, -0.328356, 0, 0.944554, -9.69386, 14.1192, 8.34803)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.4329, 11.3963, -34.6682)

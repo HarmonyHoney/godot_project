@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://1fuldslmivgt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syy88"]
+albedo_color = Color(1, 0.537255, 0, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k0gjc"]
+radius = 0.7
+
+[node name="PropCone" type="RigidBody3D"]
+mass = 0.08
+
+[node name="Cone" type="CSGCylinder3D" parent="."]
+use_collision = true
+radius = 0.77
+cone = true
+material = SubResource("StandardMaterial3D_syy88")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_k0gjc")

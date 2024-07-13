@@ -26,6 +26,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00169557, 0.222867, -0.095
 mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_l7i2k")
 center_of_mass_mode = 1
+can_sleep = false
+continuous_cd = true
 
 [node name="Body" type="MeshInstance3D" parent="."]
 layers = 2
@@ -43,7 +45,6 @@ wheel_roll_influence = 0.4
 wheel_radius = 0.12
 wheel_friction_slip = 1.0
 suspension_stiffness = 40.0
-damping_compression = 0.88
 
 [node name="Wheel5" type="CSGCylinder3D" parent="Wheel1"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -60,7 +61,6 @@ wheel_roll_influence = 0.4
 wheel_radius = 0.12
 wheel_friction_slip = 1.0
 suspension_stiffness = 40.0
-damping_compression = 0.88
 
 [node name="Wheel5" type="CSGCylinder3D" parent="Wheel2"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -77,7 +77,6 @@ wheel_roll_influence = 0.4
 wheel_radius = 0.12
 wheel_friction_slip = 1.0
 suspension_stiffness = 40.0
-damping_compression = 0.88
 
 [node name="Wheel5" type="CSGCylinder3D" parent="Wheel3"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -94,7 +93,6 @@ wheel_roll_influence = 0.4
 wheel_radius = 0.12
 wheel_friction_slip = 1.0
 suspension_stiffness = 40.0
-damping_compression = 0.88
 
 [node name="Wheel5" type="CSGCylinder3D" parent="Wheel4"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
