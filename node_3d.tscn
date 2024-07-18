@@ -122,12 +122,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_m7thr")
 shape = SubResource("WorldBoundaryShape3D_fpq4c")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(2.78272, 4.15409, 1.76569e-07, -8.74439e-09, 2.18382e-07, -5, -4.15409, 2.78272, 1.28804e-07, 41.0595, 5.71815, 5.32687)
+transform = Transform3D(-3.02531, 3.98089, -1.98542e-07, 4.7385e-08, -2.13358e-07, -5, -3.98089, -3.02531, 9.13683e-08, 41.0595, 5.71815, 5.32687)
 mesh = SubResource("TorusMesh_w6mi8")
 script = SubResource("GDScript_uom4i")
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(0.669879, -0.742467, 2.9364e-08, -4.37051e-09, -4.34923e-08, -1, 0.742467, 0.669879, -3.23796e-08, -7.00515, 1.62014, 5.15216)
+transform = Transform3D(-0.736101, 0.676868, 2.402e-08, -4.24005e-08, -1.06242e-08, -1, -0.676868, -0.736101, 3.65202e-08, -7.00515, 1.62014, 5.15216)
 mesh = SubResource("TorusMesh_w6mi8")
 material = SubResource("StandardMaterial3D_l6a0e")
 script = SubResource("GDScript_uom4i")

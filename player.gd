@@ -61,12 +61,10 @@ var last_1 := 0.0
 var last_2 := 0.0
 
 func _input(event):
+	if Menu.is_open: return
+	
 	if event is InputEventMouseMotion:
 		mouse_vel = event.relative
-	
-	if event.is_action_pressed("debug_reset"):
-		get_tree().reload_current_scene()
-	
 
 func _physics_process(delta):
 	velocity = linear_velocity
@@ -81,10 +79,11 @@ func _physics_process(delta):
 	var unfrac = 1.0 - frac
 	
 	is_floor = debug_ray3.is_colliding()#false #is_on_floor()
-	btnp_jump = Input.is_action_just_pressed("jump")
-	btn_push = Input.is_action_pressed("push")
-	btnp_push = Input.is_action_just_pressed("push")
-	btn_brake = Input.is_action_pressed("brake")
+	if !Menu.is_open:
+		btnp_jump = Input.is_action_just_pressed("jump")
+		btn_push = Input.is_action_pressed("push")
+		btnp_push = Input.is_action_just_pressed("push")
+		btn_brake = Input.is_action_pressed("brake")
 	
 	# turn
 	var input_dir = Input.get_vector("left", "right", "up", "down")
@@ -139,7 +138,6 @@ func _physics_process(delta):
 		# gravity
 		velocity.y -= gravity * delta
 	
-	print(rad_to_deg(angle), " - ", rad_to_deg(vang), " = ", rad_to_deg(dang), " , ", frac, " cam: ", rad_to_deg(cam_dist))
 	
 	ray_node.global_rotation = Vector3.ZERO
 	# velocity
@@ -193,7 +191,8 @@ func _physics_process(delta):
 	s += "\nlast_2: " + str(last_2)
 	s += "\nmiddle: " + str(middle)
 	s += "\nang: " + str(ang)
-	
+	s += "\n" + str(rad_to_deg(angle), " - ", rad_to_deg(vang), " = ", rad_to_deg(dang), " , ", frac, " cam: ", rad_to_deg(cam_dist))
+
 	
 	UI.print_label(s)
 	
