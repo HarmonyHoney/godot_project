@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cjkq8kpxelrnd"]
+[gd_scene load_steps=34 format=3 uid="uid://cjkq8kpxelrnd"]
 
 [ext_resource type="Texture2D" uid="uid://co0p64htn7wna" path="res://addons/TerrainPlugin/TestTextures/512x512 Texel Density Texture 1.png" id="1_bm61s"]
 [ext_resource type="Texture2D" uid="uid://6ashjiy2mxqq" path="res://icon.svg" id="1_ietif"]
@@ -74,12 +74,19 @@ size = Vector3(3, 3, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_krtm8"]
 size = Vector3(10, 10, 10)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xi12p"]
+friction = 0.0
+
 [sub_resource type="Curve" id="Curve_e7ww2"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_wawwe"]
-radius = 0.6
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a1ch0"]
+radius = 0.15
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pt0r6"]
+size = Vector3(1, 0.16, 3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0g5d"]
 albedo_color = Color(0.831373, 0.443137, 0, 1)
@@ -122,12 +129,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_m7thr")
 shape = SubResource("WorldBoundaryShape3D_fpq4c")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(-3.02531, 3.98089, -1.98542e-07, 4.7385e-08, -2.13358e-07, -5, -3.98089, -3.02531, 9.13683e-08, 41.0595, 5.71815, 5.32687)
+transform = Transform3D(2.22297, -4.47866, 1.88204e-07, -1.5854e-08, -2.17981e-07, -5, 4.47866, 2.22297, -1.11114e-07, 41.0595, 5.71815, 5.32687)
 mesh = SubResource("TorusMesh_w6mi8")
 script = SubResource("GDScript_uom4i")
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="Stage"]
-transform = Transform3D(-0.736101, 0.676868, 2.402e-08, -4.24005e-08, -1.06242e-08, -1, -0.676868, -0.736101, 3.65202e-08, -7.00515, 1.62014, 5.15216)
+transform = Transform3D(0.210074, 0.977682, -3.71593e-08, -3.03115e-08, -3.14942e-08, -1, -0.977682, 0.210074, 2.3019e-08, -7.00515, 1.62014, 5.15216)
 mesh = SubResource("TorusMesh_w6mi8")
 material = SubResource("StandardMaterial3D_l6a0e")
 script = SubResource("GDScript_uom4i")
@@ -359,6 +366,7 @@ transform = Transform3D(1, 0, 0, 0, -0.456058, 0.88995, 0, -0.88995, -0.456058, 
 
 [node name="Player" type="RigidBody3D" parent="Actor" node_paths=PackedStringArray("cam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.052, 10.8645, -35.955)
+physics_material_override = SubResource("PhysicsMaterial_xi12p")
 script = ExtResource("2_pcxv5")
 cam = NodePath("../Camera")
 turn_speed = 0.5
@@ -372,12 +380,24 @@ curvy = SubResource("Curve_e7ww2")
 powerslide_degrees = 75.0
 max_vel_length = 80.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/Player"]
-shape = SubResource("SphereShape3D_wawwe")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Actor/Player"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.32, 0.892)
+shape = SubResource("CapsuleShape3D_a1ch0")
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Actor/Player"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Actor/Player"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.32, -0.892)
+shape = SubResource("CapsuleShape3D_a1ch0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actor/Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+shape = SubResource("BoxShape3D_pt0r6")
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Actor/Player"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.497352, 0.0390644, -0.992577)
 visible = false
-radius = 1.0
+depth = 0.11
+disabled = true
+polygon = PackedVector2Array(0, 0, 0, 2, 0.3, 2.5, 0.7, 2.5, 1, 2, 1, 0, 0.7, -0.5, 0.3, -0.5, 0, 0, 0, 2, 0.3, 2.5, 0.7, 2.5, 1, 2, 1, 0, 0.7, -0.5, 0.3, -0.5)
 
 [node name="Ray" type="Node3D" parent="Actor/Player"]
 
@@ -415,6 +435,7 @@ debug_shape_custom_color = Color(1, 1, 1, 1)
 [node name="Center" type="Node3D" parent="Actor/Player"]
 
 [node name="Skateboard" type="Node3D" parent="Actor/Player/Center"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32, 0)
 
 [node name="Deck" type="Node3D" parent="Actor/Player/Center/Skateboard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
@@ -676,3 +697,11 @@ radius = 0.6
 
 [node name="Body" parent="." instance=ExtResource("6_aselo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.4329, 11.3963, -34.6682)
+
+[node name="Label3D" type="Label3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.185, 0)
+billboard = 1
+double_sided = false
+text = "VehicleBody3D"
+font_size = 64
+outline_size = 32

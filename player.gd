@@ -146,8 +146,6 @@ func _physics_process(delta):
 	debug_ray2.target_position = Vector3(0, 0, 5.0).rotated(Vector3(0,1,0), angle)
 	
 	
-	center.global_rotation = Vector3.ZERO
-	
 	if is_floor:
 		last_hit = debug_ray3.get_collision_point()
 		last_normal = debug_ray3.get_collision_normal()
@@ -161,25 +159,10 @@ func _physics_process(delta):
 	
 	
 	rayboard.rotation.y = angle
-	skateboard.rotation.y = angle
-	
-	var middle = 0.0
-	var ang = 0.0
-	
-	if rayboard1.is_colliding() and rayboard2.is_colliding():
-		last_1 = last_rayboard.y - rayboard1.get_collision_point().y
-		last_2 = last_rayboard.y - rayboard2.get_collision_point().y
-		middle = lerp(last_1, last_2, 0.5)
-		last_dist = 1.12 - middle
-		ang = atan2(last_2 - last_1, 0.892 * 2)
-		skateboard.rotation.x = -ang
-	else:
-		var l = 3.0
-		last_dist = lerp(last_dist, 0.0, l * delta)
-		skateboard.rotation.x = lerp(skateboard.rotation.x, 0.0, l * delta)
+	#skateboard.rotation.y = angle
 	
 	
-	skateboard.position.y = last_dist
+	#skateboard.position.y = last_dist
 	
 	
 	linear_velocity = velocity
@@ -189,8 +172,6 @@ func _physics_process(delta):
 	s += "\nturn diff: " + str(turn_diff)
 	s += "\nlast_1: " + str(last_1)
 	s += "\nlast_2: " + str(last_2)
-	s += "\nmiddle: " + str(middle)
-	s += "\nang: " + str(ang)
 	s += "\n" + str(rad_to_deg(angle), " - ", rad_to_deg(vang), " = ", rad_to_deg(dang), " , ", frac, " cam: ", rad_to_deg(cam_dist))
 
 	

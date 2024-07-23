@@ -22,4 +22,5 @@ func set_is_colshape(arg := false):
 	print(get_tree().debug_collisions_hint)
 
 func set_is_reset(arg := false):
-	get_tree().reload_current_scene()
+	if arg:
+		get_tree().call_deferred("reload_current_scene")
